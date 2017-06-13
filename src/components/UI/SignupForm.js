@@ -1,7 +1,7 @@
-import React from 'react';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import { disabledButton } from '../../helpers/validation';
+import React from "react";
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
+import { disabledButton } from "../../helpers/validation";
 
 export default class SignupForm extends React.Component {
   constructor() {
@@ -55,14 +55,17 @@ export default class SignupForm extends React.Component {
         <RaisedButton
           label="Continue"
           primary={true}
+          type="submit"
           onTouchTap={this.handleSubmit}
           disabled={disabled}
           style={this.props.buttonStyle}
         />
-        <p style={{textAlign: "center"}}>
+        <p style={{ textAlign: "center" }}>
           Already have an account?
-          {' '}
-          <strong><a href="#" onClick={this.props.handleSwapForm}>Log in</a></strong>.
+          {" "}
+          <strong>
+            <a href="#" onClick={this.props.handleSwapForm}>Log in</a>
+          </strong>.
         </p>
       </div>
     );

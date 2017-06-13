@@ -1,7 +1,7 @@
-import React from 'react';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import { disabledButton } from '../../helpers/validation';
+import React from "react";
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
+import { disabledButton } from "../../helpers/validation";
 
 const initialState = {
   email: "",
@@ -37,14 +37,17 @@ class LoginForm extends React.Component {
         passwordError
       });
     } else {
-      this.setState(initialState);
       this.props.handleLogin(this.state.email, this.state.password);
-      this.props.handleClose();
+      this.setState(initialState);
     }
   }
 
   render() {
-    const disabled = disabledButton(this.state, this.state.emailError, this.state.passwordError);
+    const disabled = disabledButton(
+      this.state,
+      this.state.emailError,
+      this.state.passwordError
+    );
 
     return (
       <div>
@@ -73,10 +76,12 @@ class LoginForm extends React.Component {
           disabled={disabled}
           style={this.props.buttonStyle}
         />
-        <p style={{textAlign: "center"}}>
+        <p style={{ textAlign: "center" }}>
           Need to create an account?
-          {' '}
-          <strong><a href="#" onClick={this.props.handleSwapForm}>Sign up</a></strong>.
+          {" "}
+          <strong>
+            <a href="#" onClick={this.props.handleSwapForm}>Sign up</a>
+          </strong>.
         </p>
       </div>
     );
