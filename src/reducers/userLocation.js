@@ -1,33 +1,31 @@
-import * as Actions from '../actions/getDotsActions';
-
+import * as Actions from '../actions/userLocation';
 
 const initialState = {
-  data: [],
   isFetching: false,
+	data: null,
   error: null
 };
 
-export function dotsList(state = initialState, action) {
+export function userLocation(state = initialState, action) {
   switch (action.type) {
-    case Actions.GET_DOTS_START:
+    case Actions.GET_USER_LOCATION_START:
       return {
         ...state,
         isFetching: true,
         error: null
       };
-    case Actions.GET_DOTS_SUCCESS:
+    case Actions.GET_USER_LOCATION_SUCCESS:
       return {
-        ...state,
+        isFetching: false,
         data: action.data,
-        isFetching: false
+        error: null
       };
-    case Actions.GET_DOTS_FAILURE:
+    case Actions.GET_USER_LOCATION_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-
     default:
       return state;
   }
