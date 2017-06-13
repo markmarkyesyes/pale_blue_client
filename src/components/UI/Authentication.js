@@ -18,7 +18,7 @@ const buttonStyle = {
   textTransform: "uppercase"
 };
 
-export default class Registration extends React.Component {
+export default class Authentication extends React.Component {
   constructor() {
     super();
 
