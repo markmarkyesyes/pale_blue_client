@@ -4,12 +4,13 @@ import Cartesian3 from 'cesium/Source/Core/Cartesian3';
 
 export default class ContentDot extends React.Component {
   componentDidMount() {
-    const { dots, userLocation } = this.props;
+    const { dots, ...dot } = this.props;
 
     if (dots) {
       this.dot = dots.add({
-        position: Cartesian3.fromDegrees(userLocation.lng, userLocation.lat),
-        color: Color.DEEPSKYBLUE
+        id: { ...dot },
+        position: Cartesian3.fromDegrees(dot.lng, dot.lat),
+        color: Color.GOLD
       });
     }
   }
