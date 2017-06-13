@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
-
-// import '../App.css';
-
+import React from 'react';
 import CesiumGlobe from "./CesiumGlobe";
+import Authentication from './UI/Authentication';
 
-class App extends Component {
+export default class App extends React.Component {
 
     render() {
         return (
             <div>
+              <div id="credits"></div>
               <CesiumGlobe />
+              <Authentication />
             </div>
         );
     }
 }
-
-export default App;
