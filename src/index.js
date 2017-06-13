@@ -1,12 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
-
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import registerServiceWorker from "./registerServiceWorker";
+import injectTapEventPlugin from "react-tap-event-plugin";
 import "cesium/Source/Widgets/widgets.css";
 import buildModuleUrl from "cesium/Source/Core/buildModuleUrl";
-buildModuleUrl.setBaseUrl('./cesium/');
+import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+injectTapEventPlugin();
+buildModuleUrl.setBaseUrl("./cesium/");
+
+ReactDOM.render(
+  <MuiThemeProvider>
+    <App />
+  </MuiThemeProvider>,
+  document.getElementById("root")
+);
+
 registerServiceWorker();
