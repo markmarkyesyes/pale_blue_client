@@ -8,13 +8,22 @@ import "cesium/Source/Widgets/widgets.css";
 import buildModuleUrl from "cesium/Source/Core/buildModuleUrl";
 import "./index.css";
 
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+
 injectTapEventPlugin();
 buildModuleUrl.setBaseUrl("./cesium/");
 
+import paleBlue from './reducers';
+let store = createStore(paleBlue, applyMiddleware(thunk));
+
 ReactDOM.render(
-  <MuiThemeProvider>
-    <App />
-  </MuiThemeProvider>,
+	<Provider store={store}>
+	  <MuiThemeProvider>
+	    <App />
+	  </MuiThemeProvider>
+	</Provider>,
   document.getElementById("root")
 );
 
