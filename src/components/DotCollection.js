@@ -1,5 +1,5 @@
 import React from 'react';
-import EntityCollection from 'cesium/Source/Scene/PointPrimitiveCollection';
+import PointPrimitiveCollection from 'cesium/Source/Scene/PointPrimitiveCollection';
 import UserDot from './UserDot';
 import ContentDot from './ContentDot';
 
