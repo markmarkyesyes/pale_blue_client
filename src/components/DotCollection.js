@@ -1,6 +1,7 @@
 import React from 'react';
 import Color from 'cesium/Source/Core/Color';
 import Cartesian3 from 'cesium/Source/Core/Cartesian3';
+import CesiumMath from 'cesium/Source/Core/Math';
 import PointPrimitiveCollection from 'cesium/Source/Scene/PointPrimitiveCollection';
 
 
@@ -47,6 +48,16 @@ export default class DotCollection extends React.Component {
     this.dot = this.dots.add({
       position,
       color: Color.DEEPSKYBLUE
+    });
+
+    const height = 20000000;
+    this.props.scene.camera.setView({
+      destination : Cartesian3.fromDegrees(lng, lat, height),
+      orientation: {
+        heading: 0.0,
+        pitch: -CesiumMath.PI_OVER_TWO,
+        roll: 0.0
+      } 
     });
   }
 
