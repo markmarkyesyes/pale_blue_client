@@ -1,4 +1,6 @@
 import React from "react";
+import Cartesian3 from 'cesium/Source/Core/Cartesian3';
+import CesiumMath from 'cesium/Source/Core/Math';
 
 import Viewer from "cesium/Source/Widgets/Viewer/Viewer";
 import BingMapsImageryProvider
@@ -11,6 +13,17 @@ const BING_MAPS_KEY =
 const STK_TERRAIN_URL = "//assets.agi.com/stk-terrain/world";
 
 import DotCollectionContainer from '../containers/DotCollectionContainer';
+
+const containerStyle = {
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  alignItems: "stretch"
+};
+
+const widgetStyle = {
+  flexGrow: 2
+};
 
 export default class CesiumGlobe extends React.Component {
   state = { viewerLoaded: false };
@@ -46,6 +59,19 @@ export default class CesiumGlobe extends React.Component {
 
     this.viewer.scene.screenSpaceCameraController.maximumZoomDistance = 25000000;
 
+    const altitude = 20000000;
+
+    const { userLocation } = this.props;
+
+    this.viewer.scene.camera.setView({
+      destination : Cartesian3.fromDegrees(userLocation.lng, userLocation.lat, altitude),
+      orientation: {
+        heading: 0.0,
+        pitch: -CesiumMath.PI_OVER_TWO,
+        roll: 0.0
+      }
+    });
+
     // Force immediate re-render now that the Cesium viewer is created
     this.setState({ viewerLoaded: true });
   }
@@ -56,7 +82,7 @@ export default class CesiumGlobe extends React.Component {
     }
   }
 
-  renderContents() {
+  renderContents(userLocation) {
     const { viewerLoaded } = this.state;
     let contents = null;
 
@@ -65,7 +91,10 @@ export default class CesiumGlobe extends React.Component {
 
       contents = (
         <span>
-          <DotCollectionContainer scene={scene} />
+          <DotCollectionContainer
+            scene={scene}
+            userLocation={userLocation}
+          />
         </span>
       );
     }
@@ -74,18 +103,10 @@ export default class CesiumGlobe extends React.Component {
   }
 
   render() {
-    const containerStyle = {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "stretch"
-    };
 
-    const widgetStyle = {
-      flexGrow: 2
-    };
+    const { userLocation } = this.props;
 
-    const contents = this.renderContents();
+    const contents = this.renderContents(userLocation);
 
     return (
       <div className="cesiumGlobeWrapper" style={containerStyle}>
