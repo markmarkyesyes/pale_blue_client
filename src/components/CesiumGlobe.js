@@ -10,7 +10,7 @@ const BING_MAPS_KEY =
   "Ao8A_lsleN-M7elUZmPiMO0B0XkPBctzSPF7MCvoOTW7HmXLFR8KhqOsZymj_q7-";
 const STK_TERRAIN_URL = "//assets.agi.com/stk-terrain/world";
 
-import DotCollection from './DotCollection';
+import DotCollectionContainer from '../containers/DotCollectionContainer';
 
 export default class CesiumGlobe extends React.Component {
   state = { viewerLoaded: false };
@@ -65,7 +65,7 @@ export default class CesiumGlobe extends React.Component {
 
       contents = (
         <span>
-          <DotCollection scene={scene} />
+          <DotCollectionContainer scene={scene} />
         </span>
       );
     }

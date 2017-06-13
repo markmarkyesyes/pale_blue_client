@@ -23,7 +23,7 @@ export function requestFailure(error) {
   };
 }
 
-export function getContentLocations() {
+export function getDotLocations() {
   return (dispatch) => {
     dispatch(requestStart());
 

@@ -7,7 +7,7 @@ const initialState = {
   error: null
 };
 
-export function pointsList(state = initialState, action) {
+export function dotsList(state = initialState, action) {
   switch (action.type) {
     case Actions.REQUEST_START:
       return {

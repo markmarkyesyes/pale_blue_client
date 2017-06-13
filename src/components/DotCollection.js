@@ -3,6 +3,7 @@ import Color from 'cesium/Source/Core/Color';
 import Cartesian3 from 'cesium/Source/Core/Cartesian3';
 import PointPrimitiveCollection from 'cesium/Source/Scene/PointPrimitiveCollection';
 
+
 export default class DotCollection extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,8 @@ export default class DotCollection extends React.Component {
     if (scene) {
       scene.primitives.add(this.dots);
     }
+
+    this.success = this.success.bind(this);
   }
 
   componentWillUnmount() {
@@ -30,15 +33,31 @@ export default class DotCollection extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const lng = -71.2760;
-    const lat = 42.4906;
+  error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  success(pos) {
+    const crd = pos.coords;
+    const lat = crd.latitude;
+    const lng = crd.longitude;
+
     const position = Cartesian3.fromDegrees(lng, lat);
 
     this.dot = this.dots.add({
       position,
       color: Color.DEEPSKYBLUE
     });
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(this.success, this.error);
+    // const position = Cartesian3.fromDegrees(lng, lat);
+
+    // this.dot = this.dots.add({
+    //   position,
+    //   color: Color.DEEPSKYBLUE
+    // });
   }
 
   render() {
