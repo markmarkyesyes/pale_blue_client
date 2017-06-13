@@ -1,8 +1,7 @@
 import React from 'react';
-import Color from 'cesium/Source/Core/Color';
-import Cartesian3 from 'cesium/Source/Core/Cartesian3';
-import CesiumMath from 'cesium/Source/Core/Math';
-import PointPrimitiveCollection from 'cesium/Source/Scene/PointPrimitiveCollection';
+import EntityCollection from 'cesium/Source/Scene/PointPrimitiveCollection';
+import UserDot from './UserDot';
+import ContentDot from './ContentDot';
 
 
 export default class DotCollection extends React.Component {
@@ -16,8 +15,6 @@ export default class DotCollection extends React.Component {
     if (scene) {
       scene.primitives.add(this.dots);
     }
-
-    this.success = this.success.bind(this);
   }
 
   componentWillUnmount() {
@@ -34,44 +31,25 @@ export default class DotCollection extends React.Component {
     }
   }
 
-  error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  success(pos) {
-    const crd = pos.coords;
-    const lat = crd.latitude;
-    const lng = crd.longitude;
-
-    const position = Cartesian3.fromDegrees(lng, lat);
-
-    this.dot = this.dots.add({
-      position,
-      color: Color.DEEPSKYBLUE
-    });
-
-    const height = 20000000;
-    this.props.scene.camera.setView({
-      destination : Cartesian3.fromDegrees(lng, lat, height),
-      orientation: {
-        heading: 0.0,
-        pitch: -CesiumMath.PI_OVER_TWO,
-        roll: 0.0
-      } 
-    });
-  }
-
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(this.success, this.error);
-    // const position = Cartesian3.fromDegrees(lng, lat);
-
-    // this.dot = this.dots.add({
-    //   position,
-    //   color: Color.DEEPSKYBLUE
-    // });
-  }
-
   render() {
-    return null;
+    const { userLocation, dotsList } = this.props;
+
+    const renderedDots = dotsList.map(dot => (
+      <ContentDot
+        {...dot}
+        dots={this.dots}
+        key={dot.contentId}
+      />
+    ));
+
+    return (
+      <span>
+        <UserDot
+          userLocation={userLocation}
+          dots={this.dots}
+        />
+        {renderedDots}
+      </span>
+    );
   }
 }
