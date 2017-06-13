@@ -74,8 +74,6 @@ export function regFailure(error) {
 }
 
 export function regUser(creds) {
-  console.log("registering user");
-  console.log("creds", creds);
   let config = {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -85,7 +83,6 @@ export function regUser(creds) {
     dispatch(regStart());
     fetch("http://localhost:3030/api/v1/register", config)
       .then(res => {
-        console.log("response from fetch");
         if (res.status >= 400) {
           throw new Error(res.error);
         } else {
@@ -93,7 +90,6 @@ export function regUser(creds) {
         }
       })
       .then(response => {
-        console.log("response created from server", response);
         localStorage.setItem("user_id", response.user);
         localStorage.setItem("token", response.token);
         dispatch(regSuccess(response.user._id));

@@ -1,7 +1,7 @@
-export const REQUEST_START = 'REQUEST_START';
-export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
-export const REQUEST_FAILURE = 'REQUEST_FAILURE';
-
+export const REQUEST_START = "REQUEST_START";
+export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
+export const REQUEST_FAILURE = "REQUEST_FAILURE";
+export const UPDATE_LIST = "UPDATE_LIST";
 
 export function requestStart() {
   return {
@@ -23,11 +23,18 @@ export function requestFailure(error) {
   };
 }
 
+export function updateDotsList(data) {
+  return {
+    type: UPDATE_LIST,
+    data
+  };
+}
+
 export function getDotLocations() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(requestStart());
 
-    fetch('api/dots')
+    fetch("api/dots")
       .then(response => {
         if (!response.ok) {
           throw new Error(`${response.status}: ${response.statusText}`);
@@ -41,5 +48,5 @@ export function getDotLocations() {
         console.log(error);
         dispatch(requestFailure(error));
       });
-  }
+  };
 }

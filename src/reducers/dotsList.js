@@ -1,5 +1,4 @@
-import * as Actions from '../actions/getDotsActions';
-
+import * as Actions from "../actions/getDotsActions";
 
 const initialState = {
   data: [],
@@ -26,6 +25,12 @@ export function dotsList(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.error
+      };
+    //pseudocode
+    case Actions.UPDATE_LIST:
+      return {
+        ...state,
+        dotsList: [...dotsList, action.data]
       };
 
     default:
