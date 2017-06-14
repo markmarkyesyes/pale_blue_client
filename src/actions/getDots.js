@@ -1,6 +1,6 @@
-export const DOT_API_START = 'DOT_API_START';
-export const GET_DOTS_SUCCESS = 'GET_DOTS_SUCCESS';
-export const DOT_API_FAILURE = 'DOT_API_FAILURE';
+export const DOT_API_START = "DOT_API_START";
+export const GET_DOTS_SUCCESS = "GET_DOTS_SUCCESS";
+export const DOT_API_FAILURE = "DOT_API_FAILURE";
 
 export function dotApiStart() {
   return {
@@ -22,17 +22,16 @@ export function dotApiFailure(error) {
   };
 }
 
-
 export function getDots() {
   return dispatch => {
     dispatch(dotApiStart());
 
     fetch("api/v1/content")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`${response.status}: ${response.statusText}`);
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`${res.status}: ${res.statusText}`);
         }
-        return response.json();
+        return res.json();
       })
       .then(dotsList => {
         dispatch(getDotsSuccess(dotsList));
@@ -42,5 +41,4 @@ export function getDots() {
         dispatch(dotApiFailure(error));
       });
   };
-
 }
