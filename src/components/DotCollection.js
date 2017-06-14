@@ -1,6 +1,5 @@
 import React from 'react';
 import CustomDataSource from 'cesium/Source/DataSources/CustomDataSource';
-// import EntityCollection from 'cesium/Source/DataSources/EntityCollection';
 import UserDot from './UserDot';
 import ContentDot from './ContentDot';
 
@@ -34,7 +33,7 @@ export default class DotCollection extends React.Component {
       <ContentDot
         dotObject={dotObject}
         dots={dots}
-        key={dotObject.contentId}
+        key={dotObject._id}
       />
     ));
 
