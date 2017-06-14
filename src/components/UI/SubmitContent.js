@@ -3,7 +3,21 @@ import SubmitButton from "./SubmitButton";
 import SubmitForm from "./SubmitForm";
 import { Dialog } from "material-ui";
 import { connect } from "react-redux";
-// import { submitContent } from "../../actions/submitActions";
+import { submitDot } from "../../actions/submitDot";
+
+const inputStyle = {
+  textAlign: "left",
+  display: "block",
+  margin: "0.5rem 0",
+  width: "100%"
+};
+
+const buttonStyle = {
+  margin: "1rem 0",
+  width: "100%",
+  textTransform: "uppercase"
+};
+
 
 class SubmitContent extends Component {
   constructor() {
@@ -26,6 +40,11 @@ class SubmitContent extends Component {
     this.setState({ open: !this.state.open });
   };
 
+  handleSubmit = (content) => {
+    this.props.submitDot(content);
+    this.handleClose();
+  };
+
   render() {
     return (
       <div>
@@ -36,19 +55,30 @@ class SubmitContent extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}>
-          <SubmitForm />
+          <SubmitForm 
+            handleSubmit={this.handleSubmit}
+            userLocation={this.props.userLocation}
+            inputStyle={inputStyle}
+            buttonStyle={buttonStyle}
+          />
         </Dialog>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  // return {
-  //   submitContent: content => {
-  //     dispatch(submitContent(content));
-  //   }
-  // };
+const mapStateToProps = state => {
+  return {
+    userLocation: state.userLocation,   
+  };
 };
 
-export default connect(null, mapDispatchToProps)(SubmitContent);
+const mapDispatchToProps = dispatch => {
+  return {
+    submitDot: content => {
+      dispatch(submitDot(content));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmitContent);
