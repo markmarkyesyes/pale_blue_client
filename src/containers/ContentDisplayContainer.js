@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 import ContentDisplay from '../components/ContentDisplay';
 
-const radius = 
-
-function
-
 function nearbyContent(cameraLocation, dotsList) {
   if (!cameraLocation || !dotsList) {
     return [];
