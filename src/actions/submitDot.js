@@ -1,8 +1,7 @@
 import dotApiStart from "./getDotsActions";
 import dotApiFailure from "./getDotsActions";
 
-export const SUBMIT_DOT_SUCCESS = 'SUBMIT_DOT_SUCCESS';
-
+export const SUBMIT_DOT_SUCCESS = "SUBMIT_DOT_SUCCESS";
 
 export function submitDotSuccess(data) {
   return {
@@ -29,11 +28,10 @@ export function submitDot(content) {
     dispatch(dotApiStart());
     fetch("api/v1/submit", config)
       .then(res => {
-        if (res.error || res.status >= 400) {
-          throw new Error(res.error);
-        } else {
-          return res.json();
+        if (!res.ok) {
+          throw new Error(`${res.status}: ${res.statusText}`);
         }
+        return res.json();
       })
       .then(json => {
         if (json.error) {
