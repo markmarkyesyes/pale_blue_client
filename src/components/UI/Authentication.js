@@ -64,6 +64,7 @@ class Authentication extends React.Component {
           style={{ textAlign: "center" }}>
           {this.state.login
             ? <LoginForm
+                serverError={this.props.serverError}
                 handleLogin={this.handleLogin}
                 handleSwapForm={this.handleSwapForm}
                 handleClose={this.handleClose}

@@ -33,5 +33,10 @@ registerServiceWorker();
 // Websockets
 ////
 import socket from './websockets';
+import { submitDotSuccess } from "./actions/submitDot";
+
+socket.on('new content', (content) => {
+	store.dispatch(submitDotSuccess(content));
+})
 
 
