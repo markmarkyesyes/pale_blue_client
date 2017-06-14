@@ -1,9 +1,11 @@
 import React from "react";
 import Dialog from "material-ui/Dialog";
 import RaisedButton from "material-ui/RaisedButton";
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
-import { validateEmail, validatePassword } from '../../helpers/validation';
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
+import { validateEmail, validatePassword } from "../../helpers/validation";
+import { connect } from "react-redux";
+import { loginUser, regUser } from "../../actions/sessionActions";
 
 const inputStyle = {
   textAlign: "left",
@@ -18,7 +20,7 @@ const buttonStyle = {
   textTransform: "uppercase"
 };
 
-export default class Authentication extends React.Component {
+class Authentication extends React.Component {
   constructor() {
     super();
 
@@ -42,12 +44,14 @@ export default class Authentication extends React.Component {
     this.setState({ open: false });
   }
 
-  handleLogin() {
-    console.log('logging in');
+  handleLogin(email, pass) {
+    this.props.loginUser({ email, pass });
+    this.handleClose();
   }
 
-  handleSignup() {
-    console.log('signing up');
+  handleSignup(email, pass) {
+    this.props.regUser({ email, pass });
+    this.handleClose();
   }
 
   handleSwapForm() {
@@ -63,12 +67,9 @@ export default class Authentication extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{textAlign: "center"}}
-        >
-          {
-            this.state.login ?
-            (
-              <LoginForm
+          style={{ textAlign: "center" }}>
+          {this.state.login
+            ? <LoginForm
                 handleLogin={this.handleLogin}
                 handleSwapForm={this.handleSwapForm}
                 handleClose={this.handleClose}
@@ -77,8 +78,7 @@ export default class Authentication extends React.Component {
                 inputStyle={inputStyle}
                 buttonStyle={buttonStyle}
               />
-            ) : (
-              <SignupForm
+            : <SignupForm
                 handleSignup={this.handleSignup}
                 handleSwapForm={this.handleSwapForm}
                 handleClose={this.handleClose}
@@ -86,11 +86,22 @@ export default class Authentication extends React.Component {
                 validatePassword={validatePassword}
                 inputStyle={inputStyle}
                 buttonStyle={buttonStyle}
-              />
-            )
-          }
+              />}
         </Dialog>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: creds => {
+      dispatch(loginUser(creds));
+    },
+    regUser: creds => {
+      dispatch(regUser(creds));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Authentication);

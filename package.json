@@ -2,8 +2,10 @@
   "name": "pale_blue_client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost.com/3001",
   "dependencies": {
     "cesium": "^1.34.0",
+    "form-serialize": "^0.7.2",
     "material-ui": "^0.18.3",
     "progress-bar-webpack-plugin": "^1.9.3",
     "react": "^15.5.4",
