@@ -4,7 +4,6 @@ import { setCameraLocation } from '../actions/camera';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    location: state.camera.location,
     userLocation: ownProps.userLocation,
     viewer: ownProps.viewer
   };
@@ -15,7 +14,7 @@ const mapDispatchToProps = dispatch => {
     setCameraLocation: location => {
       dispatch(setCameraLocation(location));
     }
-  }
+  };
 };
 
 export default connect(
