@@ -1,6 +1,4 @@
 import React from "react";
-import Cartesian3 from 'cesium/Source/Core/Cartesian3';
-import CesiumMath from 'cesium/Source/Core/Math';
 
 import Viewer from "cesium/Source/Widgets/Viewer/Viewer";
 import BingMapsImageryProvider
@@ -12,6 +10,7 @@ const BING_MAPS_KEY =
   "Ao8A_lsleN-M7elUZmPiMO0B0XkPBctzSPF7MCvoOTW7HmXLFR8KhqOsZymj_q7-";
 const STK_TERRAIN_URL = "//assets.agi.com/stk-terrain/world";
 
+import CameraContainer from '../containers/CameraContainer';
 import DotCollectionContainer from '../containers/DotCollectionContainer';
 
 const containerStyle = {
@@ -57,21 +56,6 @@ export default class CesiumGlobe extends React.Component {
       terrainProvider,
     });
 
-    this.viewer.scene.screenSpaceCameraController.maximumZoomDistance = 25000000;
-
-    const altitude = 20000000;
-
-    const { userLocation } = this.props;
-
-    this.viewer.scene.camera.setView({
-      destination : Cartesian3.fromDegrees(userLocation.lng, userLocation.lat, altitude),
-      orientation: {
-        heading: 0.0,
-        pitch: -CesiumMath.PI_OVER_TWO,
-        roll: 0.0
-      }
-    });
-
     // Force immediate re-render now that the Cesium viewer is created
     this.setState({ viewerLoaded: true });
   }
@@ -90,10 +74,15 @@ export default class CesiumGlobe extends React.Component {
     let contents = null;
 
     if (viewerLoaded) {
-      const { dataSources } = this.viewer;
+      const { dataSources, scene } = this.viewer;
 
       contents = (
         <span>
+          <CameraContainer
+            viewer={this.viewer}
+            userLocation={userLocation}
+            scene={scene}
+          />
           <DotCollectionContainer
             dataSources={dataSources}
             userLocation={userLocation}
