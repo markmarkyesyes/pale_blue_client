@@ -38,6 +38,7 @@ export function submitDot(content) {
         if (json.error) {
           dispatch(dotApiFailure(json.error));
         } else {
+          socket.emit('created content', json.content);
           dispatch(submitDotSuccess(json.content));
         }
       })
