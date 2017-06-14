@@ -1,5 +1,5 @@
-import dotApiStart from "./getDotsActions";
-import dotApiFailure from "./getDotsActions";
+import dotApiStart from "./getDots";
+import dotApiFailure from "./getDots";
 
 export const SUBMIT_DOT_SUCCESS = 'SUBMIT_DOT_SUCCESS';
 
@@ -37,7 +37,7 @@ export function submitDot(content) {
       })
       .then(json => {
         if (json.error) {
-          dispatch(dotApiFailure(error));
+          dispatch(dotApiFailure(json.error));
         } else {
           dispatch(submitDotSuccess(json.content));
         }
