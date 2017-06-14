@@ -35,11 +35,11 @@ export function submitDot(content) {
           return res.json();
         }
       })
-      .then(response => {
-        if (response.error) {
+      .then(json => {
+        if (json.error) {
           dispatch(dotApiFailure(error));
         } else {
-          dispatch(submitDotSuccess(response));
+          dispatch(submitDotSuccess(json.content));
         }
       })
       .catch(err => {
