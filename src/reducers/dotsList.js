@@ -1,4 +1,5 @@
-import * as Actions from "../actions/getDotsActions";
+import * as GetActions from "../actions/getDots";
+import * as SubmitActions from "../actions/submitDot";
 
 const initialState = {
   data: [],
@@ -8,29 +9,29 @@ const initialState = {
 
 export function dotsList(state = initialState, action) {
   switch (action.type) {
-    case Actions.GET_DOTS_START:
+    case GetActions.DOT_API_START:
       return {
         ...state,
         isFetching: true,
         error: null
       };
-    case Actions.GET_DOTS_SUCCESS:
-      return {
-        ...state,
-        data: action.data,
-        isFetching: false
-      };
-    case Actions.GET_DOTS_FAILURE:
+    case GetActions.DOT_API_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-    //pseudocode
-    case Actions.UPDATE_LIST:
+    case GetActions.GET_DOTS_SUCCESS:
       return {
         ...state,
-        dotsList: [...dotsList, action.data]
+        data: action.data,
+        isFetching: false
+      };
+    case SubmitActions.SUBMIT_DOT_SUCCESS:
+      return {
+        ...state,
+        data: [...dotsList, action.data],
+        isFetching: false
       };
 
     default:
