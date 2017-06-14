@@ -5,7 +5,6 @@ import DotCollection from "../components/DotCollection";
 import { getDots } from "../actions/getDots";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     dotsList: state.dotsList.data,
     dataSources: ownProps.dataSources,
