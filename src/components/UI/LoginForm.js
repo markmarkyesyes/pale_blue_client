@@ -2,7 +2,6 @@ import React from "react";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import { disabledButton } from "../../helpers/validation";
-
 const initialState = {
   email: "",
   password: "",
@@ -10,7 +9,7 @@ const initialState = {
   passwordError: ""
 };
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   constructor() {
     super();
 
@@ -69,6 +68,7 @@ export default class LoginForm extends React.Component {
           onChange={this.handleInputChange}
           style={this.props.inputStyle}
         />
+        <h3>{this.state.serverError}</h3>
         <RaisedButton
           label="Continue"
           primary={true}
@@ -87,3 +87,5 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
+export default LoginForm;
