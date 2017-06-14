@@ -87,12 +87,12 @@ export default class CesiumGlobe extends React.Component {
     let contents = null;
 
     if (viewerLoaded) {
-      const { scene } = this.viewer;
+      const { dataSources } = this.viewer;
 
       contents = (
         <span>
           <DotCollectionContainer
-            scene={scene}
+            dataSources={dataSources}
             userLocation={userLocation}
           />
         </span>

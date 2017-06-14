@@ -1,24 +1,31 @@
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
-import DotCollection from '../components/DotCollection';
-import { getDotLocations } from '../actions/getDotsActions';
+import DotCollection from "../components/DotCollection";
+import { getDotLocations } from "../actions/getDotsActions";
 
 const dotsList = {
   data: [
     {
-      lng: -71.2760,
-      lat: 42.4906,
-      contentId: 1,
+      lng: -76.2760,
+      lat: 56.4906,
+      contentId: "1",
+      contentType: "text/image/audio",
+      content: "text/url"
+    },
+    {
+      lng: -69.1736,
+      lat: 45.4511,
+      contentId: "2",
       contentType: "text/image/audio",
       content: "text/url"
     }
   ]
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
     dotsList: dotsList.data,
-    scene: ownProps.scene,
+    dataSources: ownProps.dataSources,
     userLocation: ownProps.userLocation
   };
 };
@@ -26,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     getDotLocations: () => {
-    	dispatch(getDotLocations());
+      dispatch(getDotLocations());
     }
   };
 };
