@@ -2,20 +2,20 @@ export const GET_USER_LOCATION_START = "GET_USER_LOCATION_START",
              GET_USER_LOCATION_SUCCESS = "GET_USER_LOCATION_SUCCESS",
              GET_USER_LOCATION_FAILURE = "GET_USER_LOCATION_FAILURE";
 
- export function requestStart() {
+ export function getUserLocationStart() {
    return {
      type: GET_USER_LOCATION_START
    };
  }
 
- export function requestSuccess(data) {
+ export function getUserLocationSuccess(data) {
    return {
      type: GET_USER_LOCATION_SUCCESS,
      data
    };
  }
 
- export function requestFailure(error) {
+ export function getUserLocationFailure(error) {
    return {
      type: GET_USER_LOCATION_FAILURE,
      error
@@ -24,16 +24,16 @@ export const GET_USER_LOCATION_START = "GET_USER_LOCATION_START",
 
 export function getUserLocation() {
   return dispatch => {
-    dispatch(requestStart());
+    dispatch(getUserLocationStart());
 
     navigator.geolocation.getCurrentPosition(
       position => {
         const lng = position.coords.longitude;
         const lat = position.coords.latitude;
-        dispatch(requestSuccess({ lng, lat }));
+        dispatch(getUserLocationSuccess({ lng, lat }));
       }, error => {
         console.error(error);
-        dispatch(requestFailure(error));
+        dispatch(getUserLocationFailure(error));
       }
     );
   }
