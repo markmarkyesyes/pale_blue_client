@@ -69,7 +69,7 @@ class SubmitContent extends Component {
 
 const mapStateToProps = state => {
   return {
-    userLocation: state.userLocation,   
+    userLocation: state.userLocation.data,   
   };
 };
 
