@@ -28,35 +28,29 @@ class Authentication extends React.Component {
       open: false,
       login: true
     };
-
-    this.handleOpen = this.handleOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
-    this.handleSwapForm = this.handleSwapForm.bind(this);
   }
 
-  handleOpen() {
+  handleOpen = () => {
     this.setState({ open: true });
-  }
+  };
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ open: false });
-  }
+  };
 
-  handleLogin(email, pass) {
+  handleLogin = (email, pass) => {
     this.props.loginUser({ email, pass });
     this.handleClose();
-  }
+  };
 
-  handleSignup(email, pass) {
+  handleSignup = (email, pass) => {
     this.props.regUser({ email, pass });
     this.handleClose();
-  }
+  };
 
-  handleSwapForm() {
+  handleSwapForm = () => {
     this.setState({ login: !this.state.login });
-  }
+  };
 
   render() {
     return (

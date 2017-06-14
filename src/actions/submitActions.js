@@ -8,9 +8,7 @@ export function submitStart() {
   };
 }
 
-import updateDotsList from "./getDotsActions";
-export function submitSuccess(message, data) {
-  dispatch(updateDotsList(data));
+export function submitSuccess(message) {
   return {
     type: SUBMIT_SUCCESS,
     message
@@ -24,30 +22,32 @@ export function submitFailure(message) {
   };
 }
 
+import updateDotsList from "./getDotsActions";
 export function submitContent(content) {
   console.log("submitting content");
-  let jsonBody = {
-    content,
-    token: localStorage.getItem("jwt_token"),
-    _id: localStorage.getItem("user_id")
-  };
+  let token = localStorage.getItem("token");
+  let jsonBody = { content };
   let config = {
     method: "POST",
     body: JSON.stringify(jsonBody),
-    headers: { "Content-Type": "application/json" }
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `JWT ${token}`
+    }
   };
   return dispatch => {
     dispatch(submitStart());
     fetch("http://localhost:3030/api/v1/submit", config)
       .then(res => {
-        if (res.status >= 400) {
+        if (res.error || res.status >= 400) {
           throw new Error(res.error);
         } else {
           return res.json();
         }
       })
       .then(response => {
-        dispatch(submitSuccess("Successfully stored", response));
+        dispatch(submitSuccess("Successfully stored"));
+        dispatch(updateDotsList(response));
       })
       .catch(err => {
         dispatch(submitFailure(err));

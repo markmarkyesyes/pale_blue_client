@@ -39,7 +39,7 @@ export function loginUser(creds) {
         }
       })
       .then(response => {
-        localStorage.setItem("user_id", response.user);
+        localStorage.setItem("user_id", response.user._id);
         localStorage.setItem("token", response.token);
         dispatch(loginSuccess(response.user._id));
       })
@@ -90,7 +90,7 @@ export function regUser(creds) {
         }
       })
       .then(response => {
-        localStorage.setItem("user_id", response.user);
+        localStorage.setItem("user_id", response.user._id);
         localStorage.setItem("token", response.token);
         dispatch(regSuccess(response.user._id));
       })
