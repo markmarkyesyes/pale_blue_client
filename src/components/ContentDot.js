@@ -17,7 +17,6 @@ export default class ContentDot extends React.Component {
         properties: dotObject
       });
     }
-    console.log(dots.entities.getById("user"));
   }
 
   componentWillUnmount() {

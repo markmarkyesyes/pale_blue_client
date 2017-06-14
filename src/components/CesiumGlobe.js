@@ -77,6 +77,9 @@ export default class CesiumGlobe extends React.Component {
   }
 
   componentWillUnmount() {
+    if (this.viewer.dataSources) {
+      this.viewer.dataSources.destroy();
+    }
     if (this.viewer) {
       this.viewer.destroy();
     }
