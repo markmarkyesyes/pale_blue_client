@@ -30,17 +30,17 @@ export function loginUser(creds) {
   };
   return dispatch => {
     dispatch(loginStart());
-    fetch("http://localhost:3030/api/v1/login", config)
+    fetch("api/v1/login", config)
       .then(res => {
         if (!res.ok) {
-          throw new Error(`${res.status}: ${res.statusText}`);
+          throw new Error(`${res.status}: ${res.error}`);
         }
         return res.json();
       })
       .then(response => {
-        localStorage.setItem("user_id", response.user._id);
+        localStorage.setItem("user_id", response._id);
         localStorage.setItem("token", response.token);
-        dispatch(loginSuccess(response.user._id));
+        dispatch(loginSuccess(response._id));
       })
       .catch(err => {
         dispatch(loginFailure(err));
@@ -80,17 +80,17 @@ export function regUser(creds) {
   };
   return dispatch => {
     dispatch(regStart());
-    fetch("http://localhost:3030/api/v1/register", config)
+    fetch("api/v1/register", config)
       .then(res => {
         if (!res.ok) {
-          throw new Error(`${res.status}: ${res.statusText}`);
+          throw new Error(`${res.status}: ${res.error}`);
         }
         return res.json();
       })
       .then(response => {
-        localStorage.setItem("user_id", response.user._id);
+        localStorage.setItem("user_id", response._id);
         localStorage.setItem("token", response.token);
-        dispatch(regSuccess(response.user._id));
+        dispatch(regSuccess(response._id));
       })
       .catch(err => {
         dispatch(regFailure(err));
