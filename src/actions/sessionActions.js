@@ -32,11 +32,10 @@ export function loginUser(creds) {
     dispatch(loginStart());
     fetch("http://localhost:3030/api/v1/login", config)
       .then(res => {
-        if (res.status >= 400) {
-          throw new Error(res.error);
-        } else {
-          return res.json();
+        if (!res.ok) {
+          throw new Error(`${res.status}: ${res.statusText}`);
         }
+        return res.json();
       })
       .then(response => {
         localStorage.setItem("user_id", response.user._id);
@@ -83,11 +82,10 @@ export function regUser(creds) {
     dispatch(regStart());
     fetch("http://localhost:3030/api/v1/register", config)
       .then(res => {
-        if (res.status >= 400) {
-          throw new Error(res.error);
-        } else {
-          return res.json();
+        if (!res.ok) {
+          throw new Error(`${res.status}: ${res.statusText}`);
         }
+        return res.json();
       })
       .then(response => {
         localStorage.setItem("user_id", response.user._id);

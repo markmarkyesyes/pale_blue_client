@@ -1,30 +1,13 @@
+import React from 'react';
 import { connect } from "react-redux";
 
 import DotCollection from "../components/DotCollection";
-import { getDots } from "../actions/getDotsActions";
-
-const dotsList = {
-  data: [
-    {
-      lng: -76.2760,
-      lat: 56.4906,
-      contentId: "1",
-      contentType: "text/image/audio",
-      content: "text/url"
-    },
-    {
-      lng: -69.1736,
-      lat: 45.4511,
-      contentId: "2",
-      contentType: "text/image/audio",
-      content: "text/url"
-    }
-  ]
-};
+import { getDots } from "../actions/getDots";
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state);
   return {
-    dotsList: dotsList.data,
+    dotsList: state.dotsList.data,
     dataSources: ownProps.dataSources,
     userLocation: ownProps.userLocation
   };
@@ -38,7 +21,17 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+class DotCollectionContainer extends React.Component {
+  componentDidMount() {
+    this.props.getDots();
+  }
+
+  render() {
+    return <DotCollection {...this.props} />
+  }
+}
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DotCollection);
+)(DotCollectionContainer);

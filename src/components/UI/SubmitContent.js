@@ -3,7 +3,7 @@ import SubmitButton from "./SubmitButton";
 import SubmitForm from "./SubmitForm";
 import { Dialog } from "material-ui";
 import { connect } from "react-redux";
-import { submitContent } from "../../actions/submitActions";
+// import { submitContent } from "../../actions/submitActions";
 
 class SubmitContent extends Component {
   constructor() {
@@ -44,11 +44,11 @@ class SubmitContent extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    submitContent: content => {
-      dispatch(submitContent(content));
-    }
-  };
+  // return {
+  //   submitContent: content => {
+  //     dispatch(submitContent(content));
+  //   }
+  // };
 };
 
 export default connect(null, mapDispatchToProps)(SubmitContent);
