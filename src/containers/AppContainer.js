@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import App from '../components/App';
 import { getUserLocation } from '../actions/userLocation';
 
@@ -20,8 +20,7 @@ const mapDispatchToProps = dispatch => {
 class AppContainer extends React.Component {
 
   componentDidMount() {
-    const { getUserLocation } = this.props;
-    getUserLocation();
+    this.props.getUserLocation();
   }
 
   render() {
