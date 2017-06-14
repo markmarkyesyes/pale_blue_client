@@ -1,24 +1,25 @@
-export const REQUEST_START = "REQUEST_START";
-export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
-export const REQUEST_FAILURE = "REQUEST_FAILURE";
+
 export const UPDATE_LIST = "UPDATE_LIST";
+export const GET_DOTS_START = 'GET_DOTS_START';
+export const GET_DOTS_SUCCESS = 'GET_DOTS_SUCCESS';
+export const GET_DOTS_FAILURE = 'GET_DOTS_FAILURE';
 
 export function requestStart() {
   return {
-    type: REQUEST_START
+    type: GET_DOTS_START
   };
 }
 
 export function requestSuccess(data) {
   return {
-    type: REQUEST_SUCCESS,
+    type: GET_DOTS_SUCCESS,
     data
   };
 }
 
 export function requestFailure(error) {
   return {
-    type: REQUEST_FAILURE,
+    type: GET_DOTS_FAILURE,
     error
   };
 }
@@ -49,4 +50,5 @@ export function getDotLocations() {
         dispatch(requestFailure(error));
       });
   };
+
 }

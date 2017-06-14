@@ -8,19 +8,19 @@ const initialState = {
 
 export function dotsList(state = initialState, action) {
   switch (action.type) {
-    case Actions.REQUEST_START:
+    case Actions.GET_DOTS_START:
       return {
         ...state,
         isFetching: true,
         error: null
       };
-    case Actions.REQUEST_SUCCESS:
+    case Actions.GET_DOTS_SUCCESS:
       return {
         ...state,
         data: action.data,
         isFetching: false
       };
-    case Actions.REQUEST_FAILURE:
+    case Actions.GET_DOTS_FAILURE:
       return {
         ...state,
         isFetching: false,
