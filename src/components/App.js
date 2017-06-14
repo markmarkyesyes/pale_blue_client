@@ -1,6 +1,7 @@
 import React from "react";
 import CesiumGlobe from "./CesiumGlobe";
 import Authentication from "./UI/Authentication";
+import SubmitContent from "./UI/SubmitContent";
 
 const containerStyle = {
   width: '100%',
@@ -15,15 +16,14 @@ const containerStyle = {
 export default class App extends React.Component {
   render() {
     const { userLocation } = this.props;
-
     if (!userLocation) return null;
-
     return (
       <div style={containerStyle}>
         <div id="credits" />
         <CesiumGlobe userLocation={userLocation} />
         <div style={{position: 'fixed', top: 10, left: 10}}>
           <Authentication />
+          <SubmitContent />
         </div>
       </div>
     );
