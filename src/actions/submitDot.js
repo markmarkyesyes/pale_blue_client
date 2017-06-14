@@ -1,5 +1,6 @@
 import dotApiStart from "./getDotsActions";
 import dotApiFailure from "./getDotsActions";
+import socket from './websockets';
 
 export const SUBMIT_DOT_SUCCESS = 'SUBMIT_DOT_SUCCESS';
 
