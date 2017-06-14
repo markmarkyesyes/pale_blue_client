@@ -4,6 +4,7 @@ import SubmitForm from "./SubmitForm";
 import { Dialog } from "material-ui";
 import { connect } from "react-redux";
 import { submitDot } from "../../actions/submitDot";
+import Authentication from './Authentication';
 
 const inputStyle = {
   textAlign: "left",
@@ -55,12 +56,17 @@ class SubmitContent extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}>
-          <SubmitForm 
-            handleSubmit={this.handleSubmit}
-            userLocation={this.props.userLocation}
-            inputStyle={inputStyle}
-            buttonStyle={buttonStyle}
-          />
+          {localStorage.getItem("user_id")
+            ? <SubmitForm 
+                handleSubmit={this.handleSubmit}
+                userLocation={this.props.userLocation}
+                inputStyle={inputStyle}
+                buttonStyle={buttonStyle}
+              />
+            : <Authentication />
+
+          }
+          
         </Dialog>
       </div>
     );
