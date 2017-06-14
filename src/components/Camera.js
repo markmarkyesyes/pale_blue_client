@@ -1,0 +1,45 @@
+import React from 'react';
+import Cartesian2 from 'cesium/Source/Core/Cartesian2';
+import Cartesian3 from 'cesium/Source/Core/Cartesian3';
+import CesiumMath from 'cesium/Source/Core/Math';
+
+const altitude = 20000000;
+const maximumZoomDistance = 25000000;
+
+export default class Camera extends React.Component {
+  componentDidMount() {
+    const { userLocation } = this.props;
+    const { scene } = this.props.viewer;
+
+    scene.screenSpaceCameraController.maximumZoomDistance = maximumZoomDistance;
+
+    scene.camera.setView({
+      destination : Cartesian3.fromDegrees(userLocation.lng, userLocation.lat, altitude),
+      orientation: {
+        heading: 0.0,
+        pitch: -CesiumMath.PI_OVER_TWO,
+        roll: 0.0
+      }
+    });
+
+    scene.camera.moveEnd.addEventListener(this.getMapCenter);
+  }
+
+  getMapCenter = () => {
+    const { viewer, setCameraLocation } = this.props;
+    const { scene } = this.props.viewer;
+
+    const windowPosition = new Cartesian2(viewer.container.clientWidth / 2, viewer.container.clientHeight / 2);
+    const pickRay = scene.camera.getPickRay(windowPosition);
+    const location = {};
+    const pickPosition = scene.globe.pick(pickRay, scene, location);
+    if (pickPosition === undefined) {
+      return null;
+    }
+    setCameraLocation(location);
+  };
+
+  render() {
+    return null;
+  }
+}
