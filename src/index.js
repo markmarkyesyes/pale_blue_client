@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+import AppContainer from "./containers/AppContainer";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import registerServiceWorker from "./registerServiceWorker";
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -21,7 +21,7 @@ let store = createStore(paleBlue, applyMiddleware(thunk));
 ReactDOM.render(
 	<Provider store={store}>
 	  <MuiThemeProvider>
-	    <App />
+	    <AppContainer />
 	  </MuiThemeProvider>
 	</Provider>,
   document.getElementById("root")
