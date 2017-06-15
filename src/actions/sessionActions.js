@@ -23,7 +23,6 @@ export function loginFailure(error) {
 }
 
 import constants from "../constants";
-`${constants.baseUrl}/api/v1/login`
 
 export function loginUser(email, password) {
   let config = {
@@ -83,7 +82,7 @@ export function regUser(email, password) {
   };
   return dispatch => {
     dispatch(regStart());
-    fetch(`${constants.baseUrl}/api/v1/login`, config)
+    fetch(`${constants.baseUrl}/api/v1/register`, config)
       .then(res => {
         return res.json();
       })

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
@@ -11,7 +11,8 @@ const initialState = {
   email: "",
   password: "",
   emailError: "",
-  passwordError: ""
+  passwordError: "",
+  serverError: null
 };
 
 class LoginForm extends React.Component {
@@ -23,9 +24,13 @@ class LoginForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.serverError) {
-      this.setState({ open: true });
+      this.setState({
+        ...this.state,
+        serverError: nextProps.serverError,
+        open: true
+      });
     } else {
-      this.setState({ open: false });
+      this.setState({ ...this.state, serverError: null, open: false });
     }
   }
 
@@ -35,15 +40,15 @@ class LoginForm extends React.Component {
       emailError: "",
       passwordError: ""
     });
-  }
+  };
 
   handleOpen = () => {
     this.setState({ open: true });
-  }
+  };
 
   handleClose = () => {
     this.setState(initialState);
-  }
+  };
 
   handleSubmit = () => {
     const { validateEmail, validatePassword, loginUser } = this.props;
@@ -58,7 +63,7 @@ class LoginForm extends React.Component {
     } else {
       loginUser(this.state.email, this.state.password);
     }
-  }
+  };
 
   render() {
     const disabled = disabledButton(
@@ -75,8 +80,7 @@ class LoginForm extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{ textAlign: "center" }}
-        >
+          style={{ textAlign: "center" }}>
           <TextField
             name="email"
             type="email"
@@ -96,7 +100,7 @@ class LoginForm extends React.Component {
             style={this.props.inputStyle}
           />
           <h3>
-            {this.props.serverError ? this.props.serverError.message : ""}
+            {this.state.serverError ? this.state.serverError.message : ""}
           </h3>
           <RaisedButton
             label="Continue"
