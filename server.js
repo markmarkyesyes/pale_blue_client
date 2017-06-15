@@ -6,10 +6,10 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(compression());
-app.use(express.static('build'));
+app.use(express.static('dist'));
 
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/build/index.html'))
+  res.sendFile(path.join(__dirname, '/dist/index.html'))
 );
 
 app.listen(port);
