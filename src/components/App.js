@@ -1,6 +1,5 @@
 import React from "react";
 import CesiumGlobe from "./CesiumGlobe";
-import Authentication from "./UI/Authentication";
 import SubmitContent from "./UI/SubmitContent";
 
 const containerStyle = {
