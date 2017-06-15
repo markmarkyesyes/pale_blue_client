@@ -37,7 +37,6 @@ class LoginForm extends React.Component {
       });
     } else {
       this.props.handleLogin(this.state.email, this.state.password);
-      this.setState(initialState);
     }
   }
 
@@ -47,7 +46,10 @@ class LoginForm extends React.Component {
       this.state.emailError,
       this.state.passwordError
     );
-
+    console.log(
+      "render",
+      this.props.serverError ? this.props.serverError.message : ""
+    );
     return (
       <div>
         <TextField
@@ -68,7 +70,9 @@ class LoginForm extends React.Component {
           onChange={this.handleInputChange}
           style={this.props.inputStyle}
         />
-        <h3>{this.state.serverError}</h3>
+        <h3>
+          {this.props.serverError ? this.props.serverError.message : ""}
+        </h3>
         <RaisedButton
           label="Continue"
           primary={true}

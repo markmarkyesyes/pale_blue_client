@@ -1,5 +1,5 @@
 import { dotApiStart, dotApiFailure } from "./getDots";
-import socket from '../websockets';
+import socket from "../websockets";
 
 export const SUBMIT_DOT_SUCCESS = "SUBMIT_DOT_SUCCESS";
 
@@ -30,19 +30,15 @@ export function submitDot(content) {
     dispatch(dotApiStart());
     fetch("api/v1/content", config)
       .then(res => {
-        if (!res.ok) {
-          throw new Error(`${res.status}: ${res.statusText}`);
-        }
         return res.json();
       })
       .then(json => {
         if (json.error) {
-          dispatch(dotApiFailure(json.error));
-        } else {
-          console.log("successfully added content");
-          socket.emit('created content', json.content);
-          dispatch(submitDotSuccess(json.content));
+          throw new Error(`Error: ${json.error}`);
         }
+        console.log("successfully added content");
+        socket.emit("created content", json.content);
+        dispatch(submitDotSuccess(json.content));
       })
       .catch(err => {
         dispatch(dotApiFailure(err));
