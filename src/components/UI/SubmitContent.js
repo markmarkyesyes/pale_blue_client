@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Dialog } from "material-ui";
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 import SubmitButton from "./SubmitButton";
 import SubmitForm from "./SubmitForm";
-import { Dialog } from "material-ui";
-import { connect } from "react-redux";
+import { validateEmail, validatePassword } from "../../helpers/validation";
 import { submitDot } from "../../actions/submitDot";
-import Authentication from './Authentication';
 
 const inputStyle = {
   textAlign: "left",
@@ -19,6 +21,23 @@ const buttonStyle = {
   textTransform: "uppercase"
 };
 
+const authentication = () => (
+  <div>
+    You must be logged in to submit a post.
+    <LoginForm
+      validateEmail={validateEmail}
+      validatePassword={validatePassword}
+      inputStyle={inputStyle}
+      buttonStyle={buttonStyle}
+    />
+    <SignupForm
+      validateEmail={validateEmail}
+      validatePassword={validatePassword}
+      inputStyle={inputStyle}
+      buttonStyle={buttonStyle}
+    />
+  </div>
+);
 
 class SubmitContent extends Component {
   constructor() {
@@ -51,22 +70,20 @@ class SubmitContent extends Component {
       <div>
         <SubmitButton handleClick={this.handleClick} />
         <Dialog
-          title="Make a Post!"
+          title="Leave Something Behind"
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}>
-          {localStorage.getItem("user_id")
-            ? <SubmitForm 
+          {localStorage.getItem("token") || this.props.session
+            ? <SubmitForm
                 handleSubmit={this.handleSubmit}
                 userLocation={this.props.userLocation}
                 inputStyle={inputStyle}
                 buttonStyle={buttonStyle}
               />
-            : <Authentication />
-
+            : authentication()
           }
-          
         </Dialog>
       </div>
     );
@@ -75,7 +92,8 @@ class SubmitContent extends Component {
 
 const mapStateToProps = state => {
   return {
-    userLocation: state.userLocation.data,   
+    userLocation: state.userLocation.data,
+    session: state.session.data
   };
 };
 
