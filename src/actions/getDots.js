@@ -26,7 +26,7 @@ export function getDots() {
   return dispatch => {
     dispatch(dotApiStart());
 
-    fetch("api/v1/content")
+    fetch(`${process.env.REACT_APP_BASEURL}/api/v1/content`)
       .then(res => {
         if (!res.ok) {
           throw new Error(`${res.status}: ${res.statusText}`);

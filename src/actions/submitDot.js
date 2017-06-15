@@ -28,7 +28,7 @@ export function submitDot(content) {
   };
   return dispatch => {
     dispatch(dotApiStart());
-    fetch("api/v1/content", config)
+    fetch(`${process.env.REACT_APP_BASEURL}`, config)
       .then(res => {
         if (!res.ok) {
           throw new Error(`${res.status}: ${res.statusText}`);
