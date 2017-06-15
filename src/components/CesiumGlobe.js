@@ -84,7 +84,7 @@ export default class CesiumGlobe extends React.Component {
             userLocation={userLocation}
             scene={scene}
           />
-          <ContentDisplayContainer />
+          <ContentDisplayContainer scene={scene} viewer={this.viewer} />
           <DotCollectionContainer
             dataSources={dataSources}
             userLocation={userLocation}
