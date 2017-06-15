@@ -10,6 +10,8 @@ export function submitDotSuccess(data) {
   };
 }
 
+import constants from "../constants";
+
 export function submitDot(content) {
   // Expecting content to be an object with
   // lng, lat, contentType, data, and userId
@@ -28,7 +30,7 @@ export function submitDot(content) {
   };
   return dispatch => {
     dispatch(dotApiStart());
-    fetch("api/v1/content", config)
+    fetch(`${constants.baseUrl}/api/v1/content`, config)
       .then(res => {
         return res.json();
       })
