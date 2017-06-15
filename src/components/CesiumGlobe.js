@@ -1,8 +1,7 @@
 import React from "react";
 
 import Viewer from "cesium/Source/Widgets/Viewer/Viewer";
-import BingMapsImageryProvider
-  from "cesium/Source/Scene/BingMapsImageryProvider";
+import BingMapsImageryProvider from "cesium/Source/Scene/BingMapsImageryProvider";
 import CesiumTerrainProvider from "cesium/Source/Core/CesiumTerrainProvider";
 
 const BING_MAPS_URL = "//dev.virtualearth.net";
@@ -10,10 +9,10 @@ const BING_MAPS_KEY =
   "Ao8A_lsleN-M7elUZmPiMO0B0XkPBctzSPF7MCvoOTW7HmXLFR8KhqOsZymj_q7-";
 const STK_TERRAIN_URL = "//assets.agi.com/stk-terrain/world";
 
-import CameraContainer from '../containers/CameraContainer';
-import ContentDisplayContainer from '../containers/ContentDisplayContainer';
-import DotCollectionContainer from '../containers/DotCollectionContainer';
-
+import CameraContainer from "../containers/CameraContainer";
+import ContentDisplayContainer from "../containers/ContentDisplayContainer";
+import DotCollectionContainer from "../containers/DotCollectionContainer";
+import NewContentAnimationContainer from "../containers/NewContentAnimationContainer";
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -54,7 +53,7 @@ export default class CesiumGlobe extends React.Component {
       skyAtmosphere: false,
       creditContainer: "credits",
       imageryProvider,
-      terrainProvider,
+      terrainProvider
     });
 
     // Force immediate re-render now that the Cesium viewer is created
@@ -89,6 +88,7 @@ export default class CesiumGlobe extends React.Component {
             dataSources={dataSources}
             userLocation={userLocation}
           />
+          <NewContentAnimationContainer viewer={this.viewer} />
         </span>
       );
     }
@@ -97,7 +97,6 @@ export default class CesiumGlobe extends React.Component {
   }
 
   render() {
-
     const { userLocation } = this.props;
 
     const contents = this.renderContents(userLocation);
@@ -107,8 +106,7 @@ export default class CesiumGlobe extends React.Component {
         <div
           className="cesiumWidget"
           ref={element => (this.cesiumContainer = element)}
-          style={widgetStyle}
-        >
+          style={widgetStyle}>
           {contents}
         </div>
       </div>

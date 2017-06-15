@@ -1,6 +1,6 @@
-import React from 'react';
-import Color from 'cesium/Source/Core/Color';
-import Cartesian3 from 'cesium/Source/Core/Cartesian3';
+import React from "react";
+import Color from "cesium/Source/Core/Color";
+import Cartesian3 from "cesium/Source/Core/Cartesian3";
 
 export default class ContentDot extends React.Component {
   componentDidMount() {
