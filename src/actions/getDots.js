@@ -22,11 +22,13 @@ export function dotApiFailure(error) {
   };
 }
 
+import constants from "../constants";
+
 export function getDots() {
   return dispatch => {
     dispatch(dotApiStart());
 
-    fetch(`${process.env.REACT_APP_BASEURL}/api/v1/content`)
+    fetch(`${constants.baseUrl}/api/v1/content`)
       .then(res => {
         if (!res.ok) {
           throw new Error(`${res.status}: ${res.statusText}`);

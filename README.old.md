@@ -22,3 +22,8 @@ On new content:
 - On server, on "created content" event, emit "new content" event to everyone except the creator
 - On client, on "new content" event, dispatch submitDotSuccess.
 	(THIS HAPPENS ON THE MAIN WEBSOCKETS FILE)
+
+
+DEPLOYMENT:
+
+surge build https://pale-blue.surge.sh
