@@ -30,6 +30,20 @@ class Authentication extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.serverError) {
+      this.setState({
+        open: true,
+        login: true
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        open: false
+      });
+    }
+  }
+
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -40,12 +54,10 @@ class Authentication extends React.Component {
 
   handleLogin = (email, pass) => {
     this.props.loginUser({ email, pass });
-    this.handleClose();
   };
 
   handleSignup = (email, pass) => {
     this.props.regUser({ email, pass });
-    this.handleClose();
   };
 
   handleSwapForm = () => {
@@ -88,6 +100,12 @@ class Authentication extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    serverError: state.session.error
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     loginUser: creds => {
@@ -99,4 +117,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Authentication);
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
