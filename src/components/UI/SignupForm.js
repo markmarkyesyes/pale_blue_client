@@ -1,30 +1,39 @@
 import React from "react";
+import { connect } from 'react-redux';
+import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import { disabledButton } from "../../helpers/validation";
+import { regUser } from "../../actions/sessionActions";
 
-export default class SignupForm extends React.Component {
+class SignupForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      open: false,
       email: "",
       password: ""
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange(e) {
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleInputChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  handleSubmit() {
-    this.props.handleSignup(this.state.email, this.state.password);
-    this.props.handleClose();
+  handleSubmit = () => {
+    this.props.regUser(this.state.email, this.state.password);
+    this.handleClose();
   }
 
   render() {
@@ -34,40 +43,58 @@ export default class SignupForm extends React.Component {
 
     return (
       <div>
-        <TextField
-          name="email"
-          type="email"
-          hintText="Email"
-          value={this.state.email}
-          errorText={emailError}
-          onChange={this.handleInputChange}
-          style={this.props.inputStyle}
-        />
-        <TextField
-          name="password"
-          type="password"
-          hintText="Password"
-          value={this.state.password}
-          errorText={passwordError}
-          onChange={this.handleInputChange}
-          style={this.props.inputStyle}
-        />
-        <RaisedButton
-          label="Continue"
-          primary={true}
-          type="submit"
-          onTouchTap={this.handleSubmit}
-          disabled={disabled}
-          style={this.props.buttonStyle}
-        />
-        <p style={{ textAlign: "center" }}>
-          Already have an account?
-          {" "}
-          <strong>
-            <a href="#" onClick={this.props.handleSwapForm}>Log in</a>
-          </strong>.
-        </p>
+        <RaisedButton label="Sign Up" onTouchTap={this.handleOpen} />
+        <Dialog
+          title={"Sign Up"}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          style={{ textAlign: "center" }}
+        >
+          <TextField
+            name="email"
+            type="email"
+            hintText="Email"
+            value={this.state.email}
+            errorText={emailError}
+            onChange={this.handleInputChange}
+            style={this.props.inputStyle}
+          />
+          <TextField
+            name="password"
+            type="password"
+            hintText="Password"
+            value={this.state.password}
+            errorText={passwordError}
+            onChange={this.handleInputChange}
+            style={this.props.inputStyle}
+          />
+          <RaisedButton
+            label="Continue"
+            primary={true}
+            type="submit"
+            onTouchTap={this.handleSubmit}
+            disabled={disabled}
+            style={this.props.buttonStyle}
+          />
+        </Dialog>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    serverError: state.session.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    regUser: (email, password) => {
+      dispatch(regUser(email, password));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
