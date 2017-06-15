@@ -21,8 +21,7 @@ export default class App extends React.Component {
       <div style={containerStyle}>
         <div id="credits" />
         <CesiumGlobe userLocation={userLocation} />
-        <div style={{position: 'fixed', top: 10, left: 10}}>
-          <Authentication />
+        <div style={{position: 'fixed', width: 40, top: 15, right: 15}}>
           <SubmitContent />
         </div>
       </div>
