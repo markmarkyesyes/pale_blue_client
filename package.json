@@ -5,6 +5,8 @@
   "proxy": "https://paleblue-server.herokuapp.com/",
   "dependencies": {
     "cesium": "^1.34.0",
+    "compression": "^1.6.2",
+    "express": "^4.15.3",
     "form-serialize": "^0.7.2",
     "material-ui": "^0.18.3",
     "progress-bar-webpack-plugin": "^1.9.3",
@@ -61,7 +63,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build:dll:cesium": "node ./scripts/buildCesiumDLL.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "postbuild": "node ./server.js"
   },
   "jest": {
     "collectCoverageFrom": [
