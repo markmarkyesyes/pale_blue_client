@@ -22,11 +22,11 @@ export function loginFailure(error) {
   };
 }
 
-export function loginUser(creds) {
+export function loginUser(email, password) {
   let config = {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `email=${creds.email}&password=${creds.pass}`
+    body: `email=${email}&password=${password}`
   };
   return dispatch => {
     dispatch(loginStart());
@@ -72,11 +72,11 @@ export function regFailure(error) {
   };
 }
 
-export function regUser(creds) {
+export function regUser(email, password) {
   let config = {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `email=${creds.email}&password=${creds.pass}`
+    body: `email=${email}&password=${password}`
   };
   return dispatch => {
     dispatch(regStart());
