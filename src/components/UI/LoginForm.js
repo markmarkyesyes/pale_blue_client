@@ -1,8 +1,13 @@
 import React from "react";
+import { connect } from 'react-redux';
+import Dialog from "material-ui/Dialog";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import { disabledButton } from "../../helpers/validation";
+import { loginUser } from "../../actions/sessionActions";
+
 const initialState = {
+  open: false,
   email: "",
   password: "",
   emailError: "",
@@ -14,12 +19,17 @@ class LoginForm extends React.Component {
     super();
 
     this.state = initialState;
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange(e) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.serverError) {
+      this.setState({ open: true });
+    } else {
+      this.setState({ open: false });
+    }
+  }
+
+  handleInputChange = e => {
     this.setState({
       [e.target.name]: e.target.value,
       emailError: "",
@@ -27,16 +37,26 @@ class LoginForm extends React.Component {
     });
   }
 
-  handleSubmit() {
-    let emailError = this.props.validateEmail(this.state.email);
-    let passwordError = this.props.validatePassword(this.state.password);
+  handleOpen = () => {
+    this.setState({ open: true });
+  }
+
+  handleClose = () => {
+    this.setState(initialState);
+  }
+
+  handleSubmit = () => {
+    const { validateEmail, validatePassword, loginUser } = this.props;
+
+    let emailError = validateEmail(this.state.email);
+    let passwordError = validatePassword(this.state.password);
     if (emailError || passwordError) {
       this.setState({
         emailError,
         passwordError
       });
     } else {
-      this.props.handleLogin(this.state.email, this.state.password);
+      loginUser(this.state.email, this.state.password);
     }
   }
 
@@ -46,50 +66,63 @@ class LoginForm extends React.Component {
       this.state.emailError,
       this.state.passwordError
     );
-    console.log(
-      "render",
-      this.props.serverError ? this.props.serverError.message : ""
-    );
+
     return (
       <div>
-        <TextField
-          name="email"
-          type="email"
-          hintText="Email"
-          value={this.state.email}
-          errorText={this.state.emailError}
-          onChange={this.handleInputChange}
-          style={this.props.inputStyle}
-        />
-        <TextField
-          name="password"
-          type="password"
-          hintText="Password"
-          value={this.state.password}
-          errorText={this.state.passwordError}
-          onChange={this.handleInputChange}
-          style={this.props.inputStyle}
-        />
-        <h3>
-          {this.props.serverError ? this.props.serverError.message : ""}
-        </h3>
-        <RaisedButton
-          label="Continue"
-          primary={true}
-          onTouchTap={this.handleSubmit}
-          disabled={disabled}
-          style={this.props.buttonStyle}
-        />
-        <p style={{ textAlign: "center" }}>
-          Need to create an account?
-          {" "}
-          <strong>
-            <a href="#" onClick={this.props.handleSwapForm}>Sign up</a>
-          </strong>.
-        </p>
+        <RaisedButton label="Log In" onTouchTap={this.handleOpen} />
+        <Dialog
+          title={"Log In"}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          style={{ textAlign: "center" }}
+        >
+          <TextField
+            name="email"
+            type="email"
+            hintText="Email"
+            value={this.state.email}
+            errorText={this.state.emailError}
+            onChange={this.handleInputChange}
+            style={this.props.inputStyle}
+          />
+          <TextField
+            name="password"
+            type="password"
+            hintText="Password"
+            value={this.state.password}
+            errorText={this.state.passwordError}
+            onChange={this.handleInputChange}
+            style={this.props.inputStyle}
+          />
+          <h3>
+            {this.props.serverError ? this.props.serverError.message : ""}
+          </h3>
+          <RaisedButton
+            label="Continue"
+            primary={true}
+            onTouchTap={this.handleSubmit}
+            disabled={disabled}
+            style={this.props.buttonStyle}
+          />
+        </Dialog>
       </div>
     );
   }
 }
 
-export default LoginForm;
+const mapStateToProps = state => {
+  return {
+    serverError: state.session.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: (email, password) => {
+      dispatch(loginUser(email, password));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
