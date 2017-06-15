@@ -48,12 +48,6 @@ export default class SubmitForm extends React.Component {
 
 
   render() {
-    // const disabled = disabledButton(
-    //   this.state,
-    //   this.state.emailError,
-    //   this.state.passwordError
-    // );
-
     return (
       <div>
         <SelectField
@@ -74,7 +68,7 @@ export default class SubmitForm extends React.Component {
 		        />
 		      : <h3>Select image from filesystem</h3>
       	}
-	
+
         <RaisedButton
           label="Continue"
           primary={true}

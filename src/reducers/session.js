@@ -1,7 +1,7 @@
 import * as Actions from "../actions/sessionActions";
 
 const initialState = {
-  data: {},
+  data: null,
   error: null
 };
 
