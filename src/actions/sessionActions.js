@@ -83,7 +83,7 @@ export function regUser(email, password) {
   };
   return dispatch => {
     dispatch(regStart());
-    fetch("api/v1/register", config)
+    fetch(`${constants.baseUrl}/api/v1/login`, config)
       .then(res => {
         return res.json();
       })
