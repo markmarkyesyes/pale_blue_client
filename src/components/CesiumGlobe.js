@@ -11,6 +11,7 @@ const BING_MAPS_KEY =
 const STK_TERRAIN_URL = "//assets.agi.com/stk-terrain/world";
 
 import CameraContainer from '../containers/CameraContainer';
+import ContentDisplayContainer from '../containers/ContentDisplayContainer';
 import DotCollectionContainer from '../containers/DotCollectionContainer';
 
 const containerStyle = {
@@ -83,6 +84,7 @@ export default class CesiumGlobe extends React.Component {
             userLocation={userLocation}
             scene={scene}
           />
+          <ContentDisplayContainer scene={scene} viewer={this.viewer} />
           <DotCollectionContainer
             dataSources={dataSources}
             userLocation={userLocation}
