@@ -2,7 +2,7 @@
   "name": "pale_blue_client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://paleblue-server.herokuapp.com/",
   "dependencies": {
     "cesium": "^1.34.0",
     "form-serialize": "^0.7.2",
