@@ -32,12 +32,12 @@ export function loginUser(creds) {
     dispatch(loginStart());
     fetch("api/v1/login", config)
       .then(res => {
-        if (!res.ok) {
-          throw new Error(`${res.status}: ${res.error}`);
-        }
         return res.json();
       })
       .then(response => {
+        if (response.error) {
+          throw new Error(`Error: ${response.error}`);
+        }
         localStorage.setItem("user_id", response._id);
         localStorage.setItem("token", response.token);
         dispatch(loginSuccess(response._id));
@@ -82,12 +82,12 @@ export function regUser(creds) {
     dispatch(regStart());
     fetch("api/v1/register", config)
       .then(res => {
-        if (!res.ok) {
-          throw new Error(`${res.status}: ${res.error}`);
-        }
         return res.json();
       })
       .then(response => {
+        if (response.error) {
+          throw new Error(`Error: ${response.error}`);
+        }
         localStorage.setItem("user_id", response._id);
         localStorage.setItem("token", response.token);
         dispatch(regSuccess(response._id));
