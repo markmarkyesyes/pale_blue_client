@@ -33,7 +33,6 @@ export default class SubmitForm extends React.Component {
   }
 
   handleSubmit() {
-  	console.log("submitting")
   	const { contentType, data } = this.state;
   	const { lng, lat } = this.props.userLocation;
   	const content = {

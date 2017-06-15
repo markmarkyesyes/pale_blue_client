@@ -30,7 +30,7 @@ export function dotsList(state = initialState, action) {
     case SubmitActions.SUBMIT_DOT_SUCCESS:
       return {
         ...state,
-        data: [...dotsList, action.data],
+        data: [...state.data, action.data],
         isFetching: false
       };
 
