@@ -6,6 +6,8 @@ import CesiumMath from 'cesium/Source/Core/Math';
 const altitude = 20000000;
 const maximumZoomDistance = 25000000;
 
+let interval;
+
 export default class Camera extends React.Component {
   componentDidMount() {
     const { userLocation } = this.props;
@@ -22,7 +24,16 @@ export default class Camera extends React.Component {
       }
     });
 
-    scene.camera.moveEnd.addEventListener(this.getMapCenter);
+    scene.camera.moveEnd.addEventListener(this.clearMapCenterInterval);
+    scene.camera.moveStart.addEventListener(this.getMapCenterOnInterval);
+  }
+
+  getMapCenterOnInterval = () => {
+    interval = setInterval(this.getMapCenter, 250);
+  }
+
+  clearMapCenterInterval = () => {
+    clearInterval(interval);
   }
 
   getMapCenter = () => {
