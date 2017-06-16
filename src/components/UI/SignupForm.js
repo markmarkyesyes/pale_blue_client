@@ -42,8 +42,13 @@ class SignupForm extends React.Component {
     const disabled = disabledButton(this.state, emailError, passwordError);
 
     return (
-      <div>
-        <RaisedButton label="Sign Up" onTouchTap={this.handleOpen} />
+      <div style={{width: '100%'}}>
+        <RaisedButton
+          label="Sign Up"
+          primary={true}
+          onTouchTap={this.handleOpen}
+          style={{width: '90%'}}
+        />
         <Dialog
           title={"Sign Up"}
           modal={false}
@@ -76,6 +81,7 @@ class SignupForm extends React.Component {
             onTouchTap={this.handleSubmit}
             disabled={disabled}
             style={this.props.buttonStyle}
+            fullWidth={true}
           />
         </Dialog>
       </div>
