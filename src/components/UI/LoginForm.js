@@ -73,14 +73,20 @@ class LoginForm extends React.Component {
     );
 
     return (
-      <div>
-        <RaisedButton label="Log In" onTouchTap={this.handleOpen} />
+      <div style={{width: '100%'}}>
+        <RaisedButton
+          label="Log In"
+          primary={true}
+          onTouchTap={this.handleOpen}
+          style={{width: '90%'}}
+        />
         <Dialog
           title={"Log In"}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{ textAlign: "center" }}>
+          style={{ textAlign: "center" }}
+        >
           <TextField
             name="email"
             type="email"
@@ -108,6 +114,7 @@ class LoginForm extends React.Component {
             onTouchTap={this.handleSubmit}
             disabled={disabled}
             style={this.props.buttonStyle}
+            fullWidth={true}
           />
         </Dialog>
       </div>

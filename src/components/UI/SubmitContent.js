@@ -17,25 +17,33 @@ const inputStyle = {
 
 const buttonStyle = {
   margin: "1rem 0",
-  width: "100%",
   textTransform: "uppercase"
 };
 
 const authentication = () => (
   <div>
-    You must be logged in to submit a post.
-    <LoginForm
-      validateEmail={validateEmail}
-      validatePassword={validatePassword}
-      inputStyle={inputStyle}
-      buttonStyle={buttonStyle}
-    />
-    <SignupForm
-      validateEmail={validateEmail}
-      validatePassword={validatePassword}
-      inputStyle={inputStyle}
-      buttonStyle={buttonStyle}
-    />
+    <p style={{marginTop: 0}}>
+      You must log in to submit content for others to see.
+    </p>
+    <div style={{
+      marginTop: 20,
+      display: 'flex',
+      justifyContent: 'space-between'
+    }}>
+      <LoginForm
+        validateEmail={validateEmail}
+        validatePassword={validatePassword}
+        inputStyle={inputStyle}
+        buttonStyle={buttonStyle}
+      />
+      <SignupForm
+        validateEmail={validateEmail}
+        validatePassword={validatePassword}
+        inputStyle={inputStyle}
+        buttonStyle={buttonStyle}
+        style={{marginLeft: 'auto'}}
+      />
+    </div>
   </div>
 );
 
@@ -74,7 +82,8 @@ class SubmitContent extends Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{ textAlign: "center" }}>
+          style={{ textAlign: "center" }}
+        >
           {localStorage.getItem("token") || this.props.session
             ? <SubmitForm
                 handleSubmit={this.handleSubmit}
