@@ -34,7 +34,12 @@ registerServiceWorker();
 ////
 import socket from "./websockets";
 import { submitDotSuccess } from "./actions/submitDot";
+import { newLike } from "./actions/getLikes";
 
 socket.on("new content", content => {
   store.dispatch(submitDotSuccess(content));
+});
+
+socket.on("new like", like => {
+  store.dispatch(newLike(like));
 });
