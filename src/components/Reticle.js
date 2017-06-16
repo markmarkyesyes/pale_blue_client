@@ -13,6 +13,7 @@ export default function Reticle(contentFound) {
 
   return (
     <div style={{
+      pointerEvents: 'none',
       position: 'fixed',
       top: '50%',
       left: '50%',
