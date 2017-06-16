@@ -31,7 +31,7 @@ export function likesList(state = initialState, action) {
       return {
         ...state,
         newLikes: [
-        	state.newLikes,
+        	...state.newLikes,
         	action.data
         ],
         isFetching: false

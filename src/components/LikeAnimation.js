@@ -14,11 +14,13 @@ class LikeAnimation extends React.Component {
     });
   }
 
-  componentDidMount() {
-  	this.props.likesList.forEach((like) => {
+
+  componentWillReceiveProps(newProps) {
+  	newProps.likesList.forEach((like) => {
   		this.renderLike(like);
-  	})
+  	})  	
   }
+
 
   renderLike(like) {
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);

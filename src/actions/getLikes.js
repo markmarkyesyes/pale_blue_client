@@ -35,8 +35,14 @@ import constants from "../constants";
 export function getLikes() {
   return dispatch => {
     dispatch(likeApiStart());
-
-    fetch(`${constants.baseUrl}/api/v1/like`)
+    let token = localStorage.getItem("token");
+    let config = {
+      method: "GET",
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    };
+    fetch(`${constants.baseUrl}/api/v1/like`, config)
       .then(res => {
         if (!res.ok) {
           throw new Error(`${res.status}: ${res.statusText}`);
