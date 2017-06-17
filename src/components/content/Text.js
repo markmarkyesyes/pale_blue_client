@@ -1,11 +1,20 @@
 import React from 'react';
 
+const style={
+  backgroundColor: '#FFD700',
+  padding: '1rem 1rem',
+  height: '100%',
+  textOverflow: 'ellipsis'
+}
+
 export default class Text extends React.PureComponent {
   render() {
     const { data } = this.props;
 
     return (
-      <p style={{padding: '0.5rem 0.5rem'}}>{data}</p>
+      <div style={style}>
+        {data}
+      </div>
     );
   }
 }
