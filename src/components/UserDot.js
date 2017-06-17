@@ -10,7 +10,7 @@ export default class UserDot extends React.Component {
       this.dot = dots.entities.add({
         id: "user",
         point: {
-          pixelSize: 6,
+          pixelSize: 10,
           color: Color.DEEPSKYBLUE
         },
         position: Cartesian3.fromDegrees(userLocation.lng, userLocation.lat)
