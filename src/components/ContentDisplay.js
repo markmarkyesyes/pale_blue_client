@@ -4,8 +4,6 @@ import Carousel from './Carousel';
 
 const ContentDisplay = ({nearbyContent}) => {
 
-  console.log(nearbyContent);
-
   const contentFound = !!nearbyContent.length;
 
   return (
