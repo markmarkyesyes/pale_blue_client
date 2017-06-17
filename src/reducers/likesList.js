@@ -7,7 +7,7 @@ const initialState = {
   error: null
 };
 
-export function dotsList(state = initialState, action) {
+export function likesList(state = initialState, action) {
   switch (action.type) {
     case Actions.LIKE_API_START:
       return {
@@ -31,7 +31,7 @@ export function dotsList(state = initialState, action) {
       return {
         ...state,
         newLikes: [
-        	state.newLikes,
+        	...state.newLikes,
         	action.data
         ],
         isFetching: false
