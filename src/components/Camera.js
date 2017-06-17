@@ -28,6 +28,13 @@ export default class Camera extends React.Component {
     scene.camera.moveStart.addEventListener(this.getMapCenterOnInterval);
   }
 
+  componentWillUnmount() {
+    const { scene } = this.props.viewer;
+
+    scene.camera.moveEnd.removeEventListener(this.clearMapCenterInterval);
+    scene.camera.moveStart.removeEventListener(this.getMapCenterOnInterval);
+  }
+
   getMapCenterOnInterval = () => {
     interval = setInterval(this.getMapCenter, 250);
   }

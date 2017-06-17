@@ -4,8 +4,6 @@ import Carousel from './Carousel';
 
 const ContentDisplay = ({nearbyContent}) => {
 
-
-
   const contentFound = !!nearbyContent.length;
 
   return (
