@@ -47,7 +47,7 @@ class SignupForm extends React.Component {
           label="Sign Up"
           primary={true}
           onTouchTap={this.handleOpen}
-          style={{width: '90%'}}
+          style={{width: '95%', textAlign: 'center'}}
         />
         <Dialog
           title={"Sign Up"}
