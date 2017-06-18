@@ -18,7 +18,7 @@ class LikeAnimation extends React.Component {
   componentWillReceiveProps(newProps) {
   	newProps.likesList.forEach((like) => {
   		this.renderLike(like);
-  	})  	
+  	})
   }
 
 
@@ -30,7 +30,7 @@ class LikeAnimation extends React.Component {
 	      positions: this.drawLine(startPos, endPos),
 	      material: Color.SALMON
 	    }
-	  });  	
+	  });
   }
 
 	drawLine(startPos, endPos) {
@@ -41,13 +41,15 @@ class LikeAnimation extends React.Component {
 	  const startEntity = this.props.viewer.entities.add({
 	    position: startPos,
 	    point: {
-	      color: Color.RED
+        pixelSize: 4,
+	      color: Color.SALMON
 	    }
 	  });
 	  const endEntity = this.props.viewer.entities.add({
 	    position: endPos,
 	    point: {
-	      color: Color.RED
+        pixelSize: 4,
+	      color: Color.SALMON
 	    }
 	  });
 
