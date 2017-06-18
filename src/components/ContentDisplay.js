@@ -8,8 +8,8 @@ const ContentDisplay = ({nearbyContent}) => {
 
   return (
     <div>
-      {Reticle(contentFound)}
-      {Carousel(contentFound, nearbyContent)}
+      <Reticle contentFound={contentFound} />
+      <Carousel contentFound={contentFound} nearbyContent={nearbyContent} />
     </div>
   );
 };
