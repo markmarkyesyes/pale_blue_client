@@ -14,10 +14,16 @@ class NewContentAnimationContainer extends React.Component {
       this.pulse(content.lng, content.lat);
       setTimeout(() => {
         this.pulse(content.lng, content.lat);
-      }, 500);
+      }, 1000);
       setTimeout(() => {
         this.pulse(content.lng, content.lat);
-      }, 1000);
+      }, 2000);
+      setTimeout(() => {
+        this.pulse(content.lng, content.lat);
+      }, 3000);
+      setTimeout(() => {
+        this.pulse(content.lng, content.lat);
+      }, 4000);
     });
   }
   ////
