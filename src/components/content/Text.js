@@ -2,18 +2,25 @@ import React from 'react';
 
 const style={
   backgroundColor: '#FFD700',
-  padding: '1rem 1rem',
-  height: '100%',
-  textOverflow: 'ellipsis'
-}
+  height: '100%'
+};
 
 export default class Text extends React.PureComponent {
-  render() {
-    const { data } = this.props;
 
+  render() {
     return (
       <div style={style}>
-        {data}
+        <img
+          src='../../text.svg'
+          alt='text'
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            height: '50%'
+          }}
+        />
       </div>
     );
   }
