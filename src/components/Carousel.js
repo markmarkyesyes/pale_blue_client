@@ -80,6 +80,7 @@ export default class Carousel extends React.Component {
     if (!contentFound) return null;
 
     const slides = nearbyContent.map(dot => {
+      console.log('ID', dot._id);
       switch (dot.contentType) {
         case "text":
           return (
