@@ -4,6 +4,9 @@ import Color from "cesium/Source/Core/Color";
 import Cartesian3 from "cesium/Source/Core/Cartesian3";
 import defined from "cesium/Source/Core/defined";
 import CallbackProperty from "cesium/Source/DataSources/CallbackProperty";
+import { pulse } from '../helpers/animation';
+
+const multiplyColor = Color.SALMON;
 
 class LikeAnimation extends React.Component {
   ////
@@ -23,6 +26,7 @@ class LikeAnimation extends React.Component {
 
 
   renderLike(like) {
+    pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
 	  this.props.viewer.entities.add({
