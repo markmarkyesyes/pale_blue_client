@@ -6,14 +6,17 @@ import { pulse } from '../helpers/animation';
 const multiplyColor = Color.GOLD;
 
 class NewContentAnimationContainer extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    socket.on("new content", this.newContentPulse);
+  }
 
-    const { viewer } = props;
+  componentWillUnmount() {
+    socket.removeListener("new content", this.newContentPulse);
+  }
 
-    socket.on("new content", content => {
-      pulse(viewer, content.lng, content.lat, multiplyColor);
-    });
+  newContentPulse = content => {
+    const { viewer } = this.props;
+    pulse(viewer, content.lng, content.lat, multiplyColor);
   }
 
   render() {

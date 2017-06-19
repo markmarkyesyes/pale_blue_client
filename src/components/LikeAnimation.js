@@ -9,21 +9,24 @@ import { pulse } from '../helpers/animation';
 const multiplyColor = Color.SALMON;
 
 class LikeAnimation extends React.Component {
-  ////
-  constructor() {
-    super();
-    socket.on("new like", like => {
-      console.log("new like");
-    });
+  componentDidMount() {
+    socket.on("new like", this.handleNewLike);
   }
-
 
   componentWillReceiveProps(newProps) {
   	newProps.likesList.forEach((like) => {
   		this.renderLike(like);
-  	})
+  	});
   }
 
+  componentWillUnmount() {
+    socket.removeListener("new like", this.handleNewLike);
+  }
+
+
+  handleNewLike = like => {
+    console.log("new like");
+  }
 
   renderLike(like) {
     pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
