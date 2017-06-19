@@ -5,18 +5,11 @@ import CallbackProperty from "cesium/Source/DataSources/CallbackProperty";
 
 export function pulse(viewer, lng, lat, multiplyColor) {
   pulseSingle(viewer, lng, lat, multiplyColor);
-  setTimeout(() => {
-    pulseSingle(viewer, lng, lat, multiplyColor);
-  }, 1000);
-  setTimeout(() => {
-    pulseSingle(viewer, lng, lat, multiplyColor);
-  }, 2000);
-  setTimeout(() => {
-    pulseSingle(viewer, lng, lat, multiplyColor);
-  }, 3000);
-  setTimeout(() => {
-    pulseSingle(viewer, lng, lat, multiplyColor);
-  }, 4000);
+  [1, 2, 3, 4, 5].forEach(seconds => {
+    setTimeout(() => {
+      pulseSingle(viewer, lng, lat, multiplyColor);
+    }, seconds * 1000);
+  });
 }
 
 function pulseSingle(viewer, lng, lat, multiplyColor) {
