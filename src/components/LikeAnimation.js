@@ -26,13 +26,7 @@ class LikeAnimation extends React.Component {
     socket.removeListener("new like", this.handleNewLike);
   }
 
-
-  handleNewLike = like => {
-    console.log("new like");
-  }
-
   renderLike(like) {
-  	console.log(like);
     pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
