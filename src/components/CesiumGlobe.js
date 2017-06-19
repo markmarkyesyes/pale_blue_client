@@ -13,6 +13,7 @@ import CameraContainer from "../containers/CameraContainer";
 import ContentDisplayContainer from "../containers/ContentDisplayContainer";
 import DotCollectionContainer from "../containers/DotCollectionContainer";
 import NewContentAnimationContainer from "../containers/NewContentAnimationContainer";
+import LikeAnimationContainer from "../containers/LikeAnimationContainer";
 const containerStyle = {
   width: "100%",
   height: "100%",
@@ -89,6 +90,7 @@ export default class CesiumGlobe extends React.Component {
             userLocation={userLocation}
           />
           <NewContentAnimationContainer viewer={this.viewer} />
+          <LikeAnimationContainer viewer={this.viewer} />
         </span>
       );
     }

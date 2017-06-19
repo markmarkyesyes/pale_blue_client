@@ -78,7 +78,7 @@ class LoginForm extends React.Component {
           label="Log In"
           primary={true}
           onTouchTap={this.handleOpen}
-          style={{width: '90%'}}
+          style={{width: '95%'}}
         />
         <Dialog
           title={"Log In"}

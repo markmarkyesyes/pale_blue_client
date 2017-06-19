@@ -13,15 +13,14 @@ state = {
 	]
 }
 
-WEBSOCKETS:
+LIKE ANIMATION:
 
-On new content:
+- Container: On componentDidMount, calls getlikes. Renders component passing likes list.
+- Component: 
+		- on constructor: websockets event triggering animation
+		- on componentDidmount: trigger animation forEach like
 
-- When content creator receives response from the database that content was created successfully, emit "created content" event.
-	(THIS HAPPENS INSIDE THE SUBMIT CONTENT ACTION)
-- On server, on "created content" event, emit "new content" event to everyone except the creator
-- On client, on "new content" event, dispatch submitDotSuccess.
-	(THIS HAPPENS ON THE MAIN WEBSOCKETS FILE)
+
 
 
 DEPLOYMENT:
