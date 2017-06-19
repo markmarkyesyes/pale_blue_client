@@ -8,7 +8,7 @@ const ContentDisplay = ({ nearbyContent }) => {
   return (
     <div>
       {Reticle(contentFound)}
-      {LocalInfo(nearbyContent)}
+      <LocalInfo nearbyContent={nearbyContent} />
     </div>
   );
 };

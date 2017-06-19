@@ -15,8 +15,7 @@ function _calcTime(country, district, offset) {
 
 module.exports = (lng, lat) => {
   let gmtOffset;
-  let res;
-  geonames
+  return geonames
     .timezone({ lng, lat })
     .then(res => {
       gmtOffset = res.gmtOffset;
@@ -28,11 +27,10 @@ module.exports = (lng, lat) => {
       if (!country || !district) {
         return null;
       }
-      console.log(_calcTime(country, district, gmtOffset));
       return _calcTime(country, district, gmtOffset);
     })
     .catch(function(err) {
       console.error(err);
-      return err.message;
+      return null;
     });
 };
