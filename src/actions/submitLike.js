@@ -17,7 +17,6 @@ export function submitLike(like) {
   // fromLng, fromLat, fromUserId, and contentId
   const { fromLng, fromLat, fromUserId, contentId } = like;
   const formData = `contentId=${contentId}&fromUserId=${fromUserId}&fromLng=${fromLng}&fromLat=${fromLat}`;
-  console.log("submitting like");
   let token = localStorage.getItem("token");
   let config = {
     method: "POST",
@@ -27,7 +26,7 @@ export function submitLike(like) {
       Authorization: `JWT ${token}`
     }
   };
-  return dispatch => {
+  return (dispatch) => {
     dispatch(likeApiStart());
     fetch(`${constants.baseUrl}/api/v1/like`, config)
       .then(res => {
@@ -37,12 +36,12 @@ export function submitLike(like) {
         if (json.error) {
           throw new Error(`Error: ${json.error}`);
         }
-        console.log("successfully added like");
+        console.log(json);
         socket.emit("created like", json.like);
         dispatch(submitLikeSuccess(json.like));
       })
       .catch(err => {
         dispatch(likeApiFailure(err));
       });
-  };
+  }
 }

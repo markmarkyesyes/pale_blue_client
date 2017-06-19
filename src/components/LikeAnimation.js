@@ -9,8 +9,11 @@ import { pulse } from '../helpers/animation';
 const multiplyColor = Color.SALMON;
 
 class LikeAnimation extends React.Component {
-  componentDidMount() {
-    socket.on("new like", this.handleNewLike);
+  constructor(props) {
+  	super();
+    this.renderLike = this.renderLike.bind(this);
+    socket.on("new like", this.renderLike);
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -29,6 +32,7 @@ class LikeAnimation extends React.Component {
   }
 
   renderLike(like) {
+  	console.log(like);
     pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
