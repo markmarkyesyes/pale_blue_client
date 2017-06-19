@@ -17,9 +17,11 @@ class LikeAnimation extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-  	newProps.likesList.forEach((like) => {
-  		this.renderLike(like);
-  	});
+  	if (newProps.likesList.length !== this.props.likesList.length) {
+	  	newProps.likesList.forEach((like) => {
+	  		this.renderLike(like);
+	  	});
+  	}
   }
 
   componentWillUnmount() {

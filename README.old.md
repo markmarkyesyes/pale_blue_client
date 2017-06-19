@@ -13,12 +13,10 @@ state = {
 	]
 }
 
-LIKE ANIMATION:
+LAST ACTIVE:
 
-- Container: On componentDidMount, calls getlikes. Renders component passing likes list.
-- Component: 
-		- on constructor: websockets event triggering animation
-		- on componentDidmount: trigger animation forEach like
+- When I log in, I should see the likes I got SINCE I LOGGED OUT
+- When I open the browser being already logged in, I should see the likes since the last time I had the browser open.
 
 
 
