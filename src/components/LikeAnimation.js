@@ -4,25 +4,32 @@ import Color from "cesium/Source/Core/Color";
 import Cartesian3 from "cesium/Source/Core/Cartesian3";
 import defined from "cesium/Source/Core/defined";
 import CallbackProperty from "cesium/Source/DataSources/CallbackProperty";
+import { pulse } from '../helpers/animation';
+
+const multiplyColor = Color.SALMON;
 
 class LikeAnimation extends React.Component {
-  ////
-  constructor() {
-    super();
-    socket.on("new like", like => {
-      console.log("new like");
-    });
+  componentDidMount() {
+    socket.on("new like", this.handleNewLike);
   }
-
 
   componentWillReceiveProps(newProps) {
   	newProps.likesList.forEach((like) => {
   		this.renderLike(like);
-  	})  	
+  	});
+  }
+
+  componentWillUnmount() {
+    socket.removeListener("new like", this.handleNewLike);
   }
 
 
+  handleNewLike = like => {
+    console.log("new like");
+  }
+
   renderLike(like) {
+    pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
 	  this.props.viewer.entities.add({
@@ -30,7 +37,7 @@ class LikeAnimation extends React.Component {
 	      positions: this.drawLine(startPos, endPos),
 	      material: Color.SALMON
 	    }
-	  });  	
+	  });
   }
 
 	drawLine(startPos, endPos) {
@@ -41,13 +48,15 @@ class LikeAnimation extends React.Component {
 	  const startEntity = this.props.viewer.entities.add({
 	    position: startPos,
 	    point: {
-	      color: Color.RED
+        pixelSize: 4,
+	      color: Color.SALMON
 	    }
 	  });
 	  const endEntity = this.props.viewer.entities.add({
 	    position: endPos,
 	    point: {
-	      color: Color.RED
+        pixelSize: 4,
+	      color: Color.SALMON
 	    }
 	  });
 
