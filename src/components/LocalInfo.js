@@ -13,6 +13,7 @@ export default class LocalInfo extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.nearbyContent[0]) {
+      this.setState({ results: null });
       return;
     }
     this.lng = nextProps.nearbyContent[0].lng;
