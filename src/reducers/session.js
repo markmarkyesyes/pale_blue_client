@@ -41,6 +41,8 @@ export function session(state = initialState, action) {
         ...state,
         error: action.error
       };
+    case Actions.LOGOUT:
+      return initialState;
     default:
       return state;
   }
