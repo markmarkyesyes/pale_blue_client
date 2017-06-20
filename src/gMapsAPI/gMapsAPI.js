@@ -56,7 +56,6 @@ function _fetchLocalData(lng, lat) {
 
 module.exports = (lng, lat) => {
   return _fetchLocalData(lng, lat).then(results => {
-    console.log("in exported function", results);
     return results;
   });
 };
