@@ -24,7 +24,6 @@ export default class DemoForm extends React.Component {
   }
 
   handleSubmit() {
-  	console.log(localStorage.getItem("user_id"));
     const contentType = "text";
   	const { data } = this.state;
   	const { lng, lat } = this.props.userLocation;

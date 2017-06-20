@@ -75,6 +75,7 @@ export function regFailure(error) {
 }
 
 export function regUser(email, password) {
+  console.log("called regUser", email, password)
   let config = {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -90,6 +91,7 @@ export function regUser(email, password) {
         if (response.error) {
           throw new Error(`Error: ${response.error}`);
         }
+        console.log("registered user", response)
         localStorage.setItem("user_id", response._id);
         localStorage.setItem("token", response.token);
         dispatch(regSuccess(response._id));

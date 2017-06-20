@@ -45,8 +45,6 @@ class DemoDialog extends Component {
 
   handleSubmit = (content) => {
     this.props.submitDot(content, true);
-    // I need to pass submitDot a special parameter so it knows to emit the right webSockets event
-    console.log("handling submit")
     this.handleClose();
   }
 

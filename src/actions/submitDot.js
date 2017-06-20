@@ -40,7 +40,7 @@ export function submitDot(content, demo = false) {
         }
         console.log("successfully added content");
         if (demo) {
-          socket.emit("start demo", { demoUserId: localStorage.getItem("userId"), demoContentId: json.content._id })
+          socket.emit("start demo", { demoUserId: localStorage.getItem("user_id"), demoContentId: json.content._id })
         } else {
           socket.emit("created content", json.content);
         }        
