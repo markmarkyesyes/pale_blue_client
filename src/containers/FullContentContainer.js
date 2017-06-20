@@ -2,19 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FullContent from '../components/content/FullContent';
 import { submitLike } from '../actions/submitLike';
+import { selectContent, closeContent } from '../actions/selectedContent';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     userLocation: state.userLocation.data,
-    userId: localStorage.getItem("user_id"),
-    selectedContent: ownProps.selectedContent,
-    closeContent: ownProps.closeContent
+    selectedContent: state.selectedContent,
+    userId: localStorage.getItem("user_id")
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitLike: like => dispatch(submitLike(like))
+    submitLike: like => dispatch(submitLike(like)),
+    selectContent: content => dispatch(selectContent(content)),
+    closeContent: () => dispatch(closeContent())
   };
 };
 
