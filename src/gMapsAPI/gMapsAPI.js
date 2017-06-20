@@ -25,6 +25,7 @@ function _fetchLocalData(lng, lat) {
             break;
           case "administrative_area_level_1":
             results.state = component.long_name;
+            break;
           default:
             break;
         }
