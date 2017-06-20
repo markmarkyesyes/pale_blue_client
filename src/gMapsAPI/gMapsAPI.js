@@ -46,7 +46,7 @@ function _fetchLocalData(lng, lat) {
       }
       results.date = moment
         .tz(Date.now(), tzJson.timeZoneId)
-        .format("MMMM Do YYYY, h:mm:ss a");
+        .format("h:mm:ss a");
       return results;
     })
     .catch(err => {
