@@ -84,7 +84,7 @@ class SubmitContent extends Component {
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}
         >
-          {localStorage.getItem("token") || this.props.session
+          {localStorage.getItem("token") || this.props.session._id
             ? <SubmitForm
                 handleSubmit={this.handleSubmit}
                 userLocation={this.props.userLocation}

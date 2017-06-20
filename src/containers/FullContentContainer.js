@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    submitLike: like => submitLike(like)
+    submitLike: like => dispatch(submitLike(like))
   };
 };
 

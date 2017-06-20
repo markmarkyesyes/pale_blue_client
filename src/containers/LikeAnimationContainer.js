@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     likesList: state.likesList.startingLikes,
     viewer: ownProps.viewer,
+    userId: state.session.data._id
   };
 };
 
@@ -21,8 +22,16 @@ const mapDispatchToProps = dispatch => {
 
 class LikeAnimationContainer extends React.Component {
   componentDidMount() {
-    this.props.getLikes();
+    if (this.props.userId) {
+      this.props.getLikes();
+    }
   }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.userId !== newProps.userId) {
+      this.props.getLikes();
+    }
+  }  
 
   render() {
     return <LikeAnimation {...this.props} />
