@@ -3,7 +3,7 @@ import TextField from "material-ui/TextField";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
-import { getSignedRequest } from '../../helpers/s3';
+import { uploadToS3 } from '../../helpers/s3';
 
 function getFileInput() {
   return document.querySelector('.file-input');
@@ -42,7 +42,7 @@ export default class SubmitForm extends React.Component {
   		lng,
   		lat,
   		userId: localStorage.getItem("user_id")
-  	}
+  	};
     this.props.handleSubmit(content);
     this.setState(initialState);
   }
@@ -62,12 +62,27 @@ export default class SubmitForm extends React.Component {
   }
 
   handleImageSubmit = () => {
+    const { contentType } = this.state;
+    const { lng, lat } = this.props.userLocation;
+
     const input = getFileInput();
     if (!input.files || !input.files.length) {
       return;
     }
     const file = input.files[0];
-    getSignedRequest(file);
+
+    uploadToS3(file)
+      .then(url => {
+        const content = {
+          contentType,
+          data: url,
+          lng,
+          lat,
+          userId: localStorage.getItem("user_id")
+        };
+        this.props.handleSubmit(content);
+        this.setState(initialState);
+      });
   }
 
   attachInputListener = () => {

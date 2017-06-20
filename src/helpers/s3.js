@@ -2,7 +2,19 @@ import 'isomorphic-fetch';
 import 'es6-promise/auto';
 import constants from '../constants';
 
-export function getSignedRequest(file) {
+export function uploadToS3(file) {
+  return getSignedRequest(file)
+    .then(json => uploadFile(file, json.signedRequest, json.url))
+    .then(url => {
+      return url;
+    })
+    .catch(err => {
+      console.error(err);
+      return null;
+    })
+}
+
+function getSignedRequest(file) {
   const token = localStorage.getItem("token");
   const options = {
     headers: {
@@ -18,13 +30,6 @@ export function getSignedRequest(file) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
       return response.json();
-    })
-    .then(json => {
-      return uploadFile(file, json.signedRequest, json.url);
-    })
-    .catch(err => {
-      console.error(err);
-      return null;
     });
 }
 
@@ -39,9 +44,5 @@ function uploadFile(file, signedRequest, url) {
         throw new Error(`${response.status}: ${response.statusText}`);
       }
       return url;
-    })
-    .catch(err => {
-      console.error(err);
-      return null;
-    })
+    });
 }
