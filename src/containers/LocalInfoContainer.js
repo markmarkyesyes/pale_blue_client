@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import LocalInfo from '../components/LocalInfo';
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     selectedContent: state.selectedContent,
     nearbyContent: ownProps.nearbyContent
