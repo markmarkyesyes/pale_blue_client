@@ -14,13 +14,6 @@ const containerStyle = {
 };
 
 export default class App extends React.Component {
-  handleLogout = () => {
-    console.log("in handleclick");
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("token");
-    location.reload();
-  };
-
   render() {
     const { userLocation } = this.props;
     if (!userLocation) return null;
@@ -39,7 +32,7 @@ export default class App extends React.Component {
             right: 115,
             zIndex: "99999"
           }}>
-          <Logout handleLogout={this.handleLogout} />
+          <Logout />
         </div>
       </div>
     );
