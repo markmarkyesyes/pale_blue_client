@@ -20,7 +20,6 @@ export default class FullContent extends React.Component {
       userLocation,
       userId,
       submitLike,
-      selectContent,
       closeContent
     } = this.props;
     if (userLocation.lng && userLocation.lat && userId && selectedContent._id) {
