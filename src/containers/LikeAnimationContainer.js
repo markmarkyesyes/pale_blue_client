@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
 
 import LikeAnimation from "../components/LikeAnimation";
@@ -28,17 +28,19 @@ class LikeAnimationContainer extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.userId !== newProps.userId) {
+    if (
+      this.props.userId !== newProps.userId &&
+      !!localStorage.getItem("token")
+    ) {
       this.props.getLikes();
     }
-  }  
+  }
 
   render() {
-    return <LikeAnimation {...this.props} />
+    return <LikeAnimation {...this.props} />;
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LikeAnimationContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  LikeAnimationContainer
+);
