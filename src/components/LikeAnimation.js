@@ -14,6 +14,17 @@ class LikeAnimation extends React.Component {
     this.renderLike = this.renderLike.bind(this);
     socket.on("new like", this.renderLike);
 
+    this.state = {
+      demoLines: []
+    };
+
+    socket.on("finish demo", () => {
+      console.log("starting remove lines");
+      this.removeDemoLines();
+    })
+
+    this.addDemoLine = this.addDemoLine.bind(this);
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -24,6 +35,18 @@ class LikeAnimation extends React.Component {
   	}
   }
 
+  addDemoLine(line) {
+    this.setState({
+      demoLines: [...this.state.demoLines, line]
+    })
+  }
+
+  removeDemoLines() {
+    this.state.demoLines.forEach((line) => {
+      this.props.viewer.entities.remove(line);
+    })
+  }
+
   componentWillUnmount() {
     socket.removeListener("new like", this.handleNewLike);
   }
@@ -32,12 +55,15 @@ class LikeAnimation extends React.Component {
     pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
-	  this.props.viewer.entities.add({
+	  let line = this.props.viewer.entities.add({
 	    polyline: {
 	      positions: this.drawLine(startPos, endPos),
 	      material: Color.SALMON
 	    }
 	  });
+	  if (like.demoId) {
+	  	this.addDemoLine(line);
+	  }	  
   }
 
 	drawLine(startPos, endPos) {
@@ -52,6 +78,7 @@ class LikeAnimation extends React.Component {
 	      color: Color.SALMON
 	    }
 	  });
+
 	  const endEntity = this.props.viewer.entities.add({
 	    position: endPos,
 	    point: {
