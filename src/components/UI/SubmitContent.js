@@ -48,13 +48,7 @@ const authentication = () => (
 );
 
 class SubmitContent extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      open: false
-    };
-  }
+  state = { open: false };
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -69,6 +63,7 @@ class SubmitContent extends Component {
   };
 
   handleSubmit = (content) => {
+    console.log(content);
     this.props.submitDot(content);
     this.handleClose();
   };
