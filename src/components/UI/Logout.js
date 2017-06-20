@@ -6,12 +6,16 @@ const style = {
 };
 
 export default function Logout({ handleLogout }) {
-  return (
-    <RaisedButton
-      label="Logout"
-      primary={true}
-      style={style}
-      onTouchTap={handleLogout}
-    />
-  );
+  if (localStorage.getItem("token") && localStorage.getItem("user_id")) {
+    return (
+      <RaisedButton
+        label="Logout"
+        primary={true}
+        style={style}
+        onTouchTap={handleLogout}
+      />
+    );
+  } else {
+    return null;
+  }
 }
