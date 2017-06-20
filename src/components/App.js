@@ -1,6 +1,7 @@
 import React from "react";
 import CesiumGlobe from "./CesiumGlobe";
 import SubmitContent from "./UI/SubmitContent";
+import DemoDialog from "./DemoDialog";
 import Logout from "./UI/Logout";
 
 const containerStyle = {
@@ -40,6 +41,7 @@ export default class App extends React.Component {
             zIndex: "99999"
           }}>
           <Logout handleLogout={this.handleLogout} />
+          <DemoDialog />
         </div>
       </div>
     );
