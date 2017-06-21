@@ -61,7 +61,6 @@ class LikeAnimation extends React.Component {
 	      material: Color.SALMON
 	    }
 	  });
-	  console.log("before if", like);
 	  if (like.demoId) {
 	  	this.addDemoLine(line);
 	  }	  

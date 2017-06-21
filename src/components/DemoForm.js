@@ -14,6 +14,7 @@ export default class DemoForm extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitAfterReg = this.submitAfterReg.bind(this);
   }
 
 
@@ -24,18 +25,32 @@ export default class DemoForm extends React.Component {
   }
 
   handleSubmit() {
-    const contentType = "text";
-  	const { data } = this.state;
-  	const { lng, lat } = this.props.userLocation;
-  	const content = {
-  		contentType,
-  		data,
-  		lng,
-  		lat,
-  		userId: localStorage.getItem("user_id")
-  	}
-    this.props.handleSubmit(content);
-    this.setState(initialState);
+    this.props.regUser()
+
+    this.submitAfterReg();
+  }
+
+  submitAfterReg() {
+    if (localStorage.getItem("user_id")) {
+      console.log("found user, continuing");
+      const contentType = "text";
+      const { data } = this.state;
+      const { lng, lat } = this.props.userLocation;
+      const content = {
+        contentType,
+        data,
+        lng,
+        lat,
+        userId: localStorage.getItem("user_id")
+      }
+      this.props.handleSubmit(content);
+      this.setState(initialState);      
+    } else {
+      setTimeout(() => {
+        console.log("didn't find user, repeating");
+        this.submitAfterReg()
+      }, 100)
+    }
   }
 
 

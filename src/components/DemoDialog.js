@@ -39,7 +39,6 @@ class DemoDialog extends Component {
   };
 
   handleClick = () => {
-  	this.props.regUser();
     this.setState({ open: !this.state.open });
   };
 
@@ -65,6 +64,7 @@ class DemoDialog extends Component {
           style={{ textAlign: "center" }}
         >
          <DemoForm
+            regUser={this.props.regUser}
             handleSubmit={this.handleSubmit}
             inputStyle={inputStyle}
             buttonStyle={buttonStyle}
