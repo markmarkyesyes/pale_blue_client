@@ -27,7 +27,6 @@ class LikeAnimation extends React.Component {
     };
 
     socket.on("finish demo", () => {
-      console.log("starting remove lines", this.state.demoLines);
       this.removeDemoLines();
     })
   }
@@ -57,6 +56,9 @@ class LikeAnimation extends React.Component {
   renderLike = like => {
     const { viewer, userId } = this.props;
 
+		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
+		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
+
     let startColor, endColor;
     if (like.fromUserId === userId) {
       startColor = userStartColor;
@@ -70,9 +72,6 @@ class LikeAnimation extends React.Component {
     }
 
     pulse(viewer, like.fromLng, like.fromLat, endColor, pulseTimes);
-
-		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
-		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
 
     const startEntity = viewer.entities.add({
 	    position: startPos,
@@ -103,6 +102,11 @@ class LikeAnimation extends React.Component {
 	      material: fadedLine(startColor, endColor)
 	    }
 	  });
+
+	  if (like.demoId) {
+	  	this.addDemoLine(line);
+	  }
+
 
 	  if (like.demoId) {
 	  	this.addDemoLine(line);

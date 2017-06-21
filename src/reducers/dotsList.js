@@ -33,7 +33,13 @@ export function dotsList(state = initialState, action) {
         data: [...state.data, action.data],
         isFetching: false
       };
-
+    case GetActions.CLEAN_DEMO_DOTS:
+      return {
+        ...state,
+        data: state.data.filter((dot) => {
+          return !dot.demoId;
+        })
+      };
     default:
       return state;
   }

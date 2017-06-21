@@ -6,7 +6,10 @@ import RaisedButton from "material-ui/RaisedButton";
 import DemoForm from "./DemoForm";
 
 import { submitDot } from "../actions/submitDot";
-import { regUser } from "../actions/sessionActions";
+import { cleanDemoDots } from "../actions/getDots";
+import { regUser, logout } from "../actions/sessionActions";
+
+import socket from "../websockets";
 
 const inputStyle = {
   textAlign: "left",
@@ -26,8 +29,25 @@ class DemoDialog extends Component {
     super();
 
     this.state = {
-      open: false
+      open: false,
+      demoRunning: false,
     };
+
+    socket.on("finish demo", () => {
+      this.props.cleanDemoDots();
+    })
+  }
+
+  startDemo = () => {
+    this.setState({ demoRunning: true });
+  }
+
+  endDemo = () => {
+    this.setState({ demoRunning: false });
+    socket.emit("end demo");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+    this.props.logout();    
   }
 
   handleOpen = () => {
@@ -39,7 +59,6 @@ class DemoDialog extends Component {
   };
 
   handleClick = () => {
-  	this.props.regUser();
     this.setState({ open: !this.state.open });
   };
 
@@ -53,9 +72,9 @@ class DemoDialog extends Component {
     return (
       <div>
         <RaisedButton
-		      label="Demo"
+		      label={this.state.demoRunning ? "Stop" : "Demo"}
 		      primary={true}
-		      onTouchTap={this.handleClick}
+		      onTouchTap={this.state.demoRunning ? this.endDemo : this.handleClick}
 		    />
         <Dialog
           title="Type a text message and start the demo!"
@@ -64,11 +83,22 @@ class DemoDialog extends Component {
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}
         >
-         <DemoForm
+          <p>
+            {" "}This application is meant to interact with other users. While it's in alpha stage, you can try it out with this demo.{" "}
+          </p>
+          <p>
+            {" "}When you enter a message and submit, you will be logged in as a demo user, and imaginary content will be created in real time. Other than this content, everything else stays the same, so you can use the application as you normally would.{" "}
+          </p>
+          <p>
+            {" "}The simulation will run for 2 minutes, and you can stop it anytime with the Stop button.{" "}
+          </p>
+          <DemoForm
+            regUser={this.props.regUser}
             handleSubmit={this.handleSubmit}
             inputStyle={inputStyle}
             buttonStyle={buttonStyle}
             userLocation={this.props.userLocation}
+            startDemo={this.startDemo}
           />
         </Dialog>
       </div>
@@ -89,7 +119,13 @@ const mapDispatchToProps = dispatch => {
     },
     submitDot: (content, demo) => {
       dispatch(submitDot(content, demo));
-    }
+    },
+    cleanDemoDots: () => {
+      dispatch(cleanDemoDots());
+    },
+    logout: () => {
+      dispatch(logout());
+    },
   };
 };
 

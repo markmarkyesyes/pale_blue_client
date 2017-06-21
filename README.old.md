@@ -23,12 +23,7 @@ DEMO FUNCTIONALITY:
 
 Requirements:
 
-- After 5 minutes, all the demo content disappears from the globe
-		This requires cleaning up the globe without refreshing the page
-
-- Need a stop button in case I want the demo to stop before 5 min
-
-
+- Add text explanation to beggining of demo
 
 
 

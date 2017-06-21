@@ -1,37 +1,16 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import { connect } from "react-redux";
-
+import { logout } from "../../actions/sessionActions";
 class Logout extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      showing: false
-    };
-  }
-  componentDidMount() {
-    if (!!localStorage.getItem("token") && !!localStorage.getItem("user_id")) {
-      this.setState({ showing: true });
-      return;
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!!localStorage.getItem("token") && !!localStorage.getItem("user_id")) {
-      this.setState({ showing: true });
-      return;
-    }
-  }
-
   handleLogout = () => {
     localStorage.removeItem("user_id");
     localStorage.removeItem("token");
-    this.setState({ showing: false });
+    this.props.logout();
   };
 
   render() {
-    if (this.state.showing) {
+    if (this.props.isAuthed || localStorage.getItem("token")) {
       return (
         <RaisedButton
           label="Logout"
@@ -46,8 +25,16 @@ class Logout extends Component {
 }
 const mapStateToProps = state => {
   return {
-    session: state.session.data._id
+    isAuthed: state.session.isAuthed
   };
 };
 
-export default connect(mapStateToProps)(Logout);
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => {
+      dispatch(logout());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);

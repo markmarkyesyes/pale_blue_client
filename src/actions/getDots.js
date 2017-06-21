@@ -1,6 +1,13 @@
 export const DOT_API_START = "DOT_API_START";
 export const GET_DOTS_SUCCESS = "GET_DOTS_SUCCESS";
 export const DOT_API_FAILURE = "DOT_API_FAILURE";
+export const CLEAN_DEMO_DOTS = "CLEAN_DEMO_DOTS";
+
+export function cleanDemoDots() {
+  return {
+    type: CLEAN_DEMO_DOTS
+  };
+}
 
 export function dotApiStart() {
   return {

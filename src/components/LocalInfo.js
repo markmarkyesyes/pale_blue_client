@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import getLocalInfo from "../gMapsAPI/gMapsAPI";
 
 const pStyle = {
-  margin: '2px 0',
-  color: '#00BFFF'
+  margin: "2px 0",
+  color: "#00BFFF"
 };
 
 export default class LocalInfo extends Component {
@@ -17,8 +17,7 @@ export default class LocalInfo extends Component {
 
     const { lng, lat } = nextProps.selectedContent || nextProps.nearbyContent[0];
 
-    getLocalInfo(lng, lat)
-      .then(results => this.setState({ results }));
+    getLocalInfo(lng, lat).then(results => this.setState({ results }));
   }
 
   render() {
