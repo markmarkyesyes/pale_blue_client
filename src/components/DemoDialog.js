@@ -6,6 +6,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import DemoForm from "./DemoForm";
 
 import { submitDot } from "../actions/submitDot";
+import { cleanDemoDots } from "../actions/getDots";
 import { regUser } from "../actions/sessionActions";
 
 import socket from "../websockets";
@@ -31,6 +32,10 @@ class DemoDialog extends Component {
       open: false,
       demoRunning: false,
     };
+
+    socket.on("finish demo", () => {
+      this.props.cleanDemoDots();
+    })
   }
 
   startDemo = () => {
@@ -102,7 +107,10 @@ const mapDispatchToProps = dispatch => {
     },
     submitDot: (content, demo) => {
       dispatch(submitDot(content, demo));
-    }
+    },
+    cleanDemoDots: () => {
+      dispatch(cleanDemoDots());
+    },
   };
 };
 
