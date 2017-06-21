@@ -99,3 +99,10 @@ export function regUser(email, password) {
       });
   };
 }
+
+export const LOGOUT = "LOGOUT";
+export function logout() {
+  return {
+    type: LOGOUT
+  };
+}

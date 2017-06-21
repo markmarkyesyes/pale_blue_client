@@ -94,7 +94,8 @@ class SubmitContent extends Component {
 const mapStateToProps = state => {
   return {
     userLocation: state.userLocation.data,
-    session: state.session.data
+    session: state.session.data,
+    isAuthed: state.session.isAuthed
   };
 };
 
