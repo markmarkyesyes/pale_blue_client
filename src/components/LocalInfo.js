@@ -15,11 +15,7 @@ export default class LocalInfo extends Component {
       return;
     }
 
-    if (nextProps.selectedContent) {
-      var { lng, lat } = nextProps.selectedContent;
-    } else {
-      var { lng, lat } = nextProps.nearbyContent[0];
-    }
+    const { lng, lat } = nextProps.selectedContent || nextProps.nearbyContent[0];
 
     getLocalInfo(lng, lat)
       .then(results => this.setState({ results }));
