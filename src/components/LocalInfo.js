@@ -1,28 +1,28 @@
 import React, { Component } from "react";
 import getLocalInfo from "../gMapsAPI/gMapsAPI";
 
-export default class LocalInfo extends Component {
-  constructor() {
-    super();
-    this.lng = null;
-    this.lat = null;
-    this.state = {
-      results: null
-    };
-  }
+const pStyle = {
+  margin: '2px 0',
+  color: '#00BFFF'
+};
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.nearbyContent[0]) {
+export default class LocalInfo extends Component {
+  state = { results: null };
+
+  componentWillReceiveProps(nextProps, oldProps) {
+    if (!nextProps.nearbyContent.length) {
       this.setState({ results: null });
       return;
     }
-    this.lng = nextProps.nearbyContent[0].lng;
-    this.lat = nextProps.nearbyContent[0].lat;
-    getLocalInfo(this.lng, this.lat).then(res => {
-      this.setState({
-        results: res
-      });
-    });
+
+    if (nextProps.selectedContent) {
+      var { lng, lat } = nextProps.selectedContent;
+    } else {
+      var { lng, lat } = nextProps.nearbyContent[0];
+    }
+
+    getLocalInfo(lng, lat)
+      .then(results => this.setState({ results }));
   }
 
   render() {
@@ -31,14 +31,14 @@ export default class LocalInfo extends Component {
         <div
           style={{
             position: "fixed",
-            bottom: "3%",
-            left: "3%",
+            bottom: "15px",
+            left: "15px",
             zIndex: "99999"
           }}>
-          <p style={{ color: "white" }}>{this.state.results.country}</p>
-          <p style={{ color: "white" }}>{this.state.results.state}</p>
-          <p style={{ color: "white" }}>{this.state.results.district}</p>
-          <p style={{ color: "white" }}>{this.state.results.date}</p>
+          <p style={pStyle}>{this.state.results.district}</p>
+          <p style={pStyle}>{this.state.results.state}</p>
+          <p style={pStyle}>{this.state.results.country}</p>
+          <p style={pStyle}>{this.state.results.date}</p>
         </div>
       );
     } else {

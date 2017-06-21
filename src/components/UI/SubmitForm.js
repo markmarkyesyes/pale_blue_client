@@ -140,6 +140,7 @@ export default class SubmitForm extends React.Component {
                 <input
                   type="file"
                   className="file-input"
+                  accept="image/*"
                   style={{
                     cursor: 'pointer',
                     position: 'absolute',

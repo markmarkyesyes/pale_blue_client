@@ -5,6 +5,7 @@ import { likesList } from './likesList';
 import { myLiked } from './myLiked';
 import { userLocation } from './userLocation';
 import { camera } from './camera';
+import { selectedContent } from './selectedContent';
 
 export default combineReducers({
   camera,
@@ -12,5 +13,6 @@ export default combineReducers({
   session,
   dotsList,
   likesList,
-  myLiked
+  myLiked,
+  selectedContent
 });
