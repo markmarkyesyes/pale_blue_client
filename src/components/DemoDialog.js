@@ -7,7 +7,7 @@ import DemoForm from "./DemoForm";
 
 import { submitDot } from "../actions/submitDot";
 import { cleanDemoDots } from "../actions/getDots";
-import { regUser } from "../actions/sessionActions";
+import { regUser, logout } from "../actions/sessionActions";
 
 import socket from "../websockets";
 
@@ -45,6 +45,9 @@ class DemoDialog extends Component {
   endDemo = () => {
     this.setState({ demoRunning: false });
     socket.emit("end demo");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+    this.props.logout();    
   }
 
   handleOpen = () => {
@@ -80,7 +83,16 @@ class DemoDialog extends Component {
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}
         >
-         <DemoForm
+          <p>
+            {" "}This application is meant to interact with other users. While it's in alpha stage, you can try it out with this demo.{" "}
+          </p>
+          <p>
+            {" "}When you enter a message and submit, you will be logged in as a demo user, and imaginary content will be created in real time. Other than this content, everything else stays the same, so you can use the application as you normally would.{" "}
+          </p>
+          <p>
+            {" "}The simulation will run for 2 minutes, and you can stop it anytime with the Stop button.{" "}
+          </p>
+          <DemoForm
             regUser={this.props.regUser}
             handleSubmit={this.handleSubmit}
             inputStyle={inputStyle}
@@ -110,6 +122,9 @@ const mapDispatchToProps = dispatch => {
     },
     cleanDemoDots: () => {
       dispatch(cleanDemoDots());
+    },
+    logout: () => {
+      dispatch(logout());
     },
   };
 };

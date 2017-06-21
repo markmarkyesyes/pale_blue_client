@@ -23,8 +23,6 @@ DEMO FUNCTIONALITY:
 
 Requirements:
 
-- Need a stop button in case I want the demo to stop before 5 min
-- Reduce total demo time to 2 min
 - Add text explanation to beggining of demo
 
 
