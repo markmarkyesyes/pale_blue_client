@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Dialog, TextField, FlatButton, RaisedButton } from "material-ui";
+import { Dialog, TextField, RaisedButton } from "material-ui";
 import { disabledButton } from "../../helpers/validation";
 import { regUser } from "../../actions/sessionActions";
 
@@ -74,6 +74,14 @@ class SignupForm extends React.Component {
             onChange={this.handleInputChange}
             style={this.props.inputStyle}
           />
+          <p>
+            {" "}On successful registration, you will receive an email to verify
+            your account.{" "}
+          </p>
+          <p>
+            {" "}If you do not verify your account within 3 days, your account
+            will be removed.{" "}
+          </p>
           <RaisedButton
             label="Continue"
             primary={true}
@@ -83,14 +91,6 @@ class SignupForm extends React.Component {
             style={this.props.buttonStyle}
             fullWidth={true}
           />
-          <h4>
-            {" "}On successful registration, you will receive an email to verify
-            your account{" "}
-          </h4>
-          <h4>
-            {" "}If you do not verify your account within 3 days, your account
-            will be removed{" "}
-          </h4>
         </Dialog>
 
       </div>
