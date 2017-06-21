@@ -22,16 +22,24 @@ export default class App extends React.Component {
       <div style={containerStyle}>
         <div id="credits" />
         <CesiumGlobe userLocation={userLocation} />
-        <div style={{ position: "fixed", width: 40, top: 15, right: 15 }}>
+        <div
+          style={{
+            position: "fixed",
+            width: 40,
+            height: 40,
+            top: 15,
+            right: 15
+          }}
+        >
           <SubmitContent />
         </div>
         <div
           style={{
             position: "fixed",
             width: 60,
-            top: 5,
-            right: 115,
-            zIndex: "99999"
+            height: 40,
+            top: 18,
+            right: 95
           }}>
           <Logout />
           <DemoDialog />

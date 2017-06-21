@@ -5,7 +5,7 @@ const fullPanelStyle = {
   top: 68,
   left: 0,
   width: "100%",
-  height: "calc(100% - 136px)",
+  height: "calc(100% - 175px)",
   padding: "2rem 1.5rem",
   lineHeight: "1.5rem",
   backgroundColor: "#e3e3e3",
@@ -20,6 +20,7 @@ export default class FullContent extends React.Component {
       userLocation,
       userId,
       submitLike,
+      selectContent,
       closeContent
     } = this.props;
     if (userLocation.lng && userLocation.lat && userId && selectedContent._id) {
@@ -31,7 +32,7 @@ export default class FullContent extends React.Component {
       };
       submitLike(like);
     } else {
-      console.error("Missing like parameters");
+      alert("You must logged in to like something");
     }
     closeContent();
   };
@@ -61,11 +62,10 @@ export default class FullContent extends React.Component {
           style={{
             cursor: "pointer",
             position: "fixed",
-            height: 50,
-            width: 50,
-            bottom: 43,
-            left: "50%",
-            transform: "translateX(-50%)"
+            height: 40,
+            width: 40,
+            bottom: 50,
+            right: 20
           }}
         />
         {switchContent(selectedContent)}

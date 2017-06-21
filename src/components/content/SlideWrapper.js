@@ -22,7 +22,7 @@ export default class SlideWrapper extends React.Component {
         <img
           onClick={this.handleOnClick}
           src='../../open.svg'
-          alt='enlarge'
+          alt='enlarge content'
           style={{
             cursor: 'pointer',
             position: 'absolute',

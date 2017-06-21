@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import { connect } from "react-redux";
 
-const style = {
-  margin: 12
-};
-
 class Logout extends Component {
   constructor() {
     super();
@@ -29,7 +25,6 @@ class Logout extends Component {
   }
 
   handleLogout = () => {
-    console.log("in handleclick");
     localStorage.removeItem("user_id");
     localStorage.removeItem("token");
     this.setState({ showing: false });
@@ -41,7 +36,6 @@ class Logout extends Component {
         <RaisedButton
           label="Logout"
           primary={true}
-          style={style}
           onTouchTap={this.handleLogout}
         />
       );
