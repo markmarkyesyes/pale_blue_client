@@ -8,6 +8,8 @@ import DemoForm from "./DemoForm";
 import { submitDot } from "../actions/submitDot";
 import { regUser } from "../actions/sessionActions";
 
+import socket from "../websockets";
+
 const inputStyle = {
   textAlign: "left",
   display: "block",
@@ -26,8 +28,18 @@ class DemoDialog extends Component {
     super();
 
     this.state = {
-      open: false
+      open: false,
+      demoRunning: false,
     };
+  }
+
+  startDemo = () => {
+    this.setState({ demoRunning: true });
+  }
+
+  endDemo = () => {
+    this.setState({ demoRunning: false });
+    socket.emit("end demo");
   }
 
   handleOpen = () => {
@@ -52,9 +64,9 @@ class DemoDialog extends Component {
     return (
       <div>
         <RaisedButton
-		      label="Demo"
+		      label={this.state.demoRunning ? "Stop" : "Demo"}
 		      primary={true}
-		      onTouchTap={this.handleClick}
+		      onTouchTap={this.state.demoRunning ? this.endDemo : this.handleClick}
 		    />
         <Dialog
           title="Type a text message and start the demo!"
@@ -69,6 +81,7 @@ class DemoDialog extends Component {
             inputStyle={inputStyle}
             buttonStyle={buttonStyle}
             userLocation={this.props.userLocation}
+            startDemo={this.startDemo}
           />
         </Dialog>
       </div>

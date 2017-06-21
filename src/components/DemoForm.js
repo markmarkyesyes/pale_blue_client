@@ -44,6 +44,7 @@ export default class DemoForm extends React.Component {
         userId: localStorage.getItem("user_id")
       }
       this.props.handleSubmit(content);
+      this.props.startDemo();
       this.setState(initialState);      
     } else {
       setTimeout(() => {
