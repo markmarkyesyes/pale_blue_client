@@ -19,7 +19,6 @@ class LikeAnimation extends React.Component {
     };
 
     socket.on("finish demo", () => {
-      console.log("starting remove lines", this.state.demoLines);
       this.removeDemoLines();
     })
 
