@@ -2,6 +2,7 @@ import React from 'react';
 import CustomDataSource from 'cesium/Source/DataSources/CustomDataSource';
 import UserDot from './UserDot';
 import ContentDot from './ContentDot';
+import socket from "../websockets";
 
 export default class DotCollection extends React.Component {
   constructor(props) {
@@ -14,6 +15,31 @@ export default class DotCollection extends React.Component {
     if (dataSources) {
       dataSources.add(this.dots);
     }
+
+    this.state = {
+      demoDots: []
+    };
+
+    socket.on("finish demo", () => {
+      console.log("starting remove dots");
+      this.removeDemoDots();
+    })
+
+    this.addDemoDot = this.addDemoDot.bind(this);
+    this.removeDemoDots = this.removeDemoDots.bind(this);
+  }
+
+  addDemoDot(dot) {
+    this.setState({
+      demoDots: [...this.state.demoDots, dot]
+    })
+  }
+
+  removeDemoDots() {
+
+    this.state.demoDots.forEach((dot) => {
+      this.dots.entities.remove(dot);
+    })
   }
 
   componentWillUnmount() {
@@ -34,6 +60,7 @@ export default class DotCollection extends React.Component {
         dotObject={dotObject}
         dots={dots}
         key={dotObject._id}
+        addDemoDot={this.addDemoDot}
       />
     ));
 

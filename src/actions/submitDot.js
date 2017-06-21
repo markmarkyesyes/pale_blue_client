@@ -12,7 +12,7 @@ export function submitDotSuccess(data) {
 
 import constants from "../constants";
 
-export function submitDot(content) {
+export function submitDot(content, demo = false) {
   // Expecting content to be an object with
   // lng, lat, contentType, data, and userId
   // (data at the moment only supports text)
@@ -39,7 +39,11 @@ export function submitDot(content) {
           throw new Error(`Error: ${json.error}`);
         }
         console.log("successfully added content");
-        socket.emit("created content", json.content);
+        if (demo) {
+          socket.emit("start demo", { demoUserId: localStorage.getItem("user_id"), demoContentId: json.content._id })
+        } else {
+          socket.emit("created content", json.content);
+        }        
         dispatch(submitDotSuccess(json.content));
       })
       .catch(err => {

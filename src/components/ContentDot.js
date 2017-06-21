@@ -16,6 +16,9 @@ export default class ContentDot extends React.Component {
         position: Cartesian3.fromDegrees(dotObject.lng, dotObject.lat),
         properties: dotObject
       });
+      if (dotObject.demoId) {
+        this.props.addDemoDot(this.dot);
+      }
     }
   }
 

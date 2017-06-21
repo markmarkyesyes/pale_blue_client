@@ -14,6 +14,17 @@ class LikeAnimation extends React.Component {
     this.renderLike = this.renderLike.bind(this);
     socket.on("new like", this.renderLike);
 
+    this.state = {
+      demoLines: []
+    };
+
+    socket.on("finish demo", () => {
+      console.log("starting remove lines", this.state.demoLines);
+      this.removeDemoLines();
+    })
+
+    this.addDemoLine = this.addDemoLine.bind(this);
+    this.removeDemoLines = this.removeDemoLines.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -24,6 +35,18 @@ class LikeAnimation extends React.Component {
   	}
   }
 
+  addDemoLine(line) {
+    this.setState({
+      demoLines: [...this.state.demoLines, line]
+    })
+  }
+
+  removeDemoLines() {
+    this.state.demoLines.forEach((line) => {
+      this.props.viewer.entities.remove(line);
+    })
+  }
+
   componentWillUnmount() {
     socket.removeListener("new like", this.handleNewLike);
   }
@@ -32,15 +55,19 @@ class LikeAnimation extends React.Component {
     pulse(this.props.viewer, like.fromLng, like.fromLat, multiplyColor);
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
-	  this.props.viewer.entities.add({
+	  let line = this.props.viewer.entities.add({
 	    polyline: {
-	      positions: this.drawLine(startPos, endPos),
+	      positions: this.drawLine(startPos, endPos, like),
 	      material: Color.SALMON
 	    }
 	  });
+	  console.log("before if", like);
+	  if (like.demoId) {
+	  	this.addDemoLine(line);
+	  }	  
   }
 
-	drawLine(startPos, endPos) {
+	drawLine(startPos, endPos, like) {
 	  // render polylines - distance / velocity is render time for the line animation
 	  const velocity = 500;
 	  const duration = this.distanceBetween(startPos, endPos) / velocity;
@@ -52,6 +79,7 @@ class LikeAnimation extends React.Component {
 	      color: Color.SALMON
 	    }
 	  });
+
 	  const endEntity = this.props.viewer.entities.add({
 	    position: endPos,
 	    point: {
@@ -59,6 +87,11 @@ class LikeAnimation extends React.Component {
 	      color: Color.SALMON
 	    }
 	  });
+
+	  if (like.demoId) {
+	  	this.addDemoLine(startEntity);
+	  	this.addDemoLine(endEntity);
+	  }
 
 	  const startTime = performance.now();
 	  return new CallbackProperty((time, result) => {
