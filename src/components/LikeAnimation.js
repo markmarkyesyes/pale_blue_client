@@ -12,8 +12,8 @@ const likeDuration = 1000 * 30;
 const contentColor = Color.GOLD;
 const userStartColor = Color.PALETURQUOISE;
 const userEndColor = Color.DEEPSKYBLUE;
-const likedStartColor = Color.GREEN;
-const likedEndColor = Color.GREENYELLOW;
+const likedStartColor = Color.RED;
+const likedEndColor = Color.CRIMSON;
 const strangerStartColor = Color.PINK;
 const strangerEndColor = Color.SALMON;
 
@@ -61,17 +61,14 @@ class LikeAnimation extends React.Component {
 
     let startColor, endColor, width;
     if (like.fromUserId === userId) {
-      console.log('LIKE IS FROM CURRENT USER');
       startColor = userStartColor;
       endColor = userEndColor;
-      width = 1;
+      width = 2;
     } else if (like.toUserId === userId) {
-      console.log('CURRENT USER WAS LIKED');
       startColor = likedStartColor;
       endColor = likedEndColor;
       width = 2;
     } else {
-      console.log('LIKE HAS NOTHING TO DO WITH USER');
       startColor = strangerStartColor;
       endColor = strangerEndColor;
       width = 1;
