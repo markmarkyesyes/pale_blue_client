@@ -26,6 +26,7 @@ export default class DotCollection extends React.Component {
     })
 
     this.addDemoDot = this.addDemoDot.bind(this);
+    this.removeDemoDots = this.removeDemoDots.bind(this);
   }
 
   addDemoDot(dot) {
