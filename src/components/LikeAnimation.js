@@ -12,8 +12,8 @@ const likeDuration = 1000 * 30;
 const contentColor = Color.GOLD;
 const userStartColor = Color.PALETURQUOISE;
 const userEndColor = Color.DEEPSKYBLUE;
-const likedStartColor = Color.RED;
-const likedEndColor = Color.CRIMSON;
+const likedStartColor = Color.GREEN;
+const likedEndColor = Color.GREENYELLOW;
 const strangerStartColor = Color.PINK;
 const strangerEndColor = Color.SALMON;
 
@@ -59,16 +59,22 @@ class LikeAnimation extends React.Component {
 		const startPos = Cartesian3.fromDegrees(like.fromLng, like.fromLat);
 		const endPos = Cartesian3.fromDegrees(like.toLng, like.toLat);
 
-    let startColor, endColor;
+    let startColor, endColor, width;
     if (like.fromUserId === userId) {
+      console.log('LIKE IS FROM CURRENT USER');
       startColor = userStartColor;
       endColor = userEndColor;
+      width = 1;
     } else if (like.toUserId === userId) {
+      console.log('CURRENT USER WAS LIKED');
       startColor = likedStartColor;
       endColor = likedEndColor;
+      width = 2;
     } else {
+      console.log('LIKE HAS NOTHING TO DO WITH USER');
       startColor = strangerStartColor;
       endColor = strangerEndColor;
+      width = 1;
     }
 
     pulse(viewer, like.fromLng, like.fromLat, endColor, pulseTimes);
@@ -99,7 +105,8 @@ class LikeAnimation extends React.Component {
 	  const line = viewer.entities.add({
 	    polyline: {
 	      positions: drawLine(startEntity, endEntity, like, lineDuration),
-	      material: fadedLine(startColor, endColor)
+	      material: fadedLine(startColor, endColor),
+        width
 	    }
 	  });
 
