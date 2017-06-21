@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dialog } from "material-ui";
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 import SubmitButton from "./SubmitButton";
 import SubmitForm from "./SubmitForm";
 import { validateEmail, validatePassword } from "../../helpers/validation";
@@ -20,16 +20,17 @@ const buttonStyle = {
   textTransform: "uppercase"
 };
 
-const authentication = () => (
+const authentication = () =>
   <div>
-    <p style={{marginTop: 0}}>
+    <p style={{ marginTop: 0 }}>
       You must log in to submit content for others to see.
     </p>
-    <div style={{
-      marginTop: 20,
-      display: 'flex',
-      justifyContent: 'space-between'
-    }}>
+    <div
+      style={{
+        marginTop: 20,
+        display: "flex",
+        justifyContent: "space-between"
+      }}>
       <LoginForm
         validateEmail={validateEmail}
         validatePassword={validatePassword}
@@ -41,11 +42,10 @@ const authentication = () => (
         validatePassword={validatePassword}
         inputStyle={inputStyle}
         buttonStyle={buttonStyle}
-        style={{marginLeft: 'auto'}}
+        style={{ marginLeft: "auto" }}
       />
     </div>
-  </div>
-);
+  </div>;
 
 class SubmitContent extends Component {
   state = { open: false };
@@ -62,8 +62,7 @@ class SubmitContent extends Component {
     this.setState({ open: !this.state.open });
   };
 
-  handleSubmit = (content) => {
-    console.log(content);
+  handleSubmit = content => {
     this.props.submitDot(content);
     this.handleClose();
   };
@@ -77,8 +76,7 @@ class SubmitContent extends Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{ textAlign: "center" }}
-        >
+          style={{ textAlign: "center" }}>
           {localStorage.getItem("token") || this.props.session._id
             ? <SubmitForm
                 handleSubmit={this.handleSubmit}
@@ -86,8 +84,7 @@ class SubmitContent extends Component {
                 inputStyle={inputStyle}
                 buttonStyle={buttonStyle}
               />
-            : authentication()
-          }
+            : authentication()}
         </Dialog>
       </div>
     );
