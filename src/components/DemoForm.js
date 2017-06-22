@@ -7,30 +7,21 @@ const initialState = {
 };
 
 export default class DemoForm extends React.Component {
-  constructor() {
-    super();
+  state = initialState;
 
-    this.state = initialState;
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.submitAfterReg = this.submitAfterReg.bind(this);
-  }
-
-
-  handleInputChange(e) {
+  handleInputChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  handleSubmit() {
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.regUser()
-
     this.submitAfterReg();
   }
 
-  submitAfterReg() {
+  submitAfterReg = () => {
     if (localStorage.getItem("user_id")) {
       console.log("found user, continuing");
       const contentType = "text";
@@ -45,7 +36,7 @@ export default class DemoForm extends React.Component {
       }
       this.props.handleSubmit(content);
       this.props.startDemo();
-      this.setState(initialState);      
+      this.setState(initialState);
     } else {
       setTimeout(() => {
         console.log("didn't find user, repeating");
@@ -54,23 +45,25 @@ export default class DemoForm extends React.Component {
     }
   }
 
-
   render() {
     return (
       <div>
-    	 <TextField
-          name="data"
-          type="text"
-          value={this.state.data}
-          onChange={this.handleInputChange}
-          style={this.props.inputStyle}
-        />
-        <RaisedButton
-          label="Continue"
-          primary={true}
-          onTouchTap={this.handleSubmit}
-          style={this.props.buttonStyle}
-        />
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+            name="data"
+            type="text"
+            value={this.state.data}
+            onChange={this.handleInputChange}
+            style={this.props.inputStyle}
+          />
+          <RaisedButton
+            label="Continue"
+            primary={true}
+            type="submit"
+            style={this.props.buttonStyle}
+            fullWidth={true}
+          />
+        </form>
       </div>
     );
   }
