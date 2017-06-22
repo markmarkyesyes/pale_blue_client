@@ -16,11 +16,7 @@ const initialState = {
 };
 
 class LoginForm extends React.Component {
-  constructor() {
-    super();
-
-    this.state = initialState;
-  }
+  state = initialState;
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.serverError) {
@@ -50,7 +46,9 @@ class LoginForm extends React.Component {
     this.setState(initialState);
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
+
     const { validateEmail, validatePassword, loginUser } = this.props;
 
     let emailError = validateEmail(this.state.email);
@@ -87,35 +85,37 @@ class LoginForm extends React.Component {
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}
         >
-          <TextField
-            name="email"
-            type="email"
-            hintText="Email"
-            value={this.state.email}
-            errorText={this.state.emailError}
-            onChange={this.handleInputChange}
-            style={this.props.inputStyle}
-          />
-          <TextField
-            name="password"
-            type="password"
-            hintText="Password"
-            value={this.state.password}
-            errorText={this.state.passwordError}
-            onChange={this.handleInputChange}
-            style={this.props.inputStyle}
-          />
-          <h3>
-            {this.state.serverError ? this.state.serverError.message : ""}
-          </h3>
-          <RaisedButton
-            label="Continue"
-            primary={true}
-            onTouchTap={this.handleSubmit}
-            disabled={disabled}
-            style={this.props.buttonStyle}
-            fullWidth={true}
-          />
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              name="email"
+              type="email"
+              hintText="Email"
+              value={this.state.email}
+              errorText={this.state.emailError}
+              onChange={this.handleInputChange}
+              style={this.props.inputStyle}
+            />
+            <TextField
+              name="password"
+              type="password"
+              hintText="Password"
+              value={this.state.password}
+              errorText={this.state.passwordError}
+              onChange={this.handleInputChange}
+              style={this.props.inputStyle}
+            />
+            <h3>
+              {this.state.serverError ? this.state.serverError.message : ""}
+            </h3>
+            <RaisedButton
+              label="Continue"
+              primary={true}
+              type="submit"
+              disabled={disabled}
+              style={this.props.buttonStyle}
+              fullWidth={true}
+            />
+          </form>
         </Dialog>
       </div>
     );

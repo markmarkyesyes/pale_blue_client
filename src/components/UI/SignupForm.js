@@ -5,15 +5,11 @@ import { disabledButton } from "../../helpers/validation";
 import { regUser } from "../../actions/sessionActions";
 
 class SignupForm extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      open: false,
-      email: "",
-      password: ""
-    };
-  }
+  state = {
+    open: false,
+    email: "",
+    password: ""
+  };
 
   handleSignupOpen = () => {
     this.setState({ open: true });
@@ -33,7 +29,8 @@ class SignupForm extends React.Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.regUser(this.state.email, this.state.password);
     this.handleSignupClose();
   };
@@ -55,42 +52,44 @@ class SignupForm extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleSignupClose}
-          style={{ textAlign: "center" }}>
-          <TextField
-            name="email"
-            type="email"
-            hintText="Email"
-            value={this.state.email}
-            errorText={emailError}
-            onChange={this.handleInputChange}
-            style={this.props.inputStyle}
-          />
-          <TextField
-            name="password"
-            type="password"
-            hintText="Password"
-            value={this.state.password}
-            errorText={passwordError}
-            onChange={this.handleInputChange}
-            style={this.props.inputStyle}
-          />
-          <p>
-            {" "}On successful registration, you will receive an email to verify
-            your account.{" "}
-          </p>
-          <p>
-            {" "}If you do not verify your account within 3 days, your account
-            will be removed.{" "}
-          </p>
-          <RaisedButton
-            label="Continue"
-            primary={true}
-            type="submit"
-            onTouchTap={this.handleSubmit}
-            disabled={disabled}
-            style={this.props.buttonStyle}
-            fullWidth={true}
-          />
+          style={{ textAlign: "center" }}
+        >
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              name="email"
+              type="email"
+              hintText="Email"
+              value={this.state.email}
+              errorText={emailError}
+              onChange={this.handleInputChange}
+              style={this.props.inputStyle}
+            />
+            <TextField
+              name="password"
+              type="password"
+              hintText="Password"
+              value={this.state.password}
+              errorText={passwordError}
+              onChange={this.handleInputChange}
+              style={this.props.inputStyle}
+            />
+            <p>
+              {" "}On successful registration, you will receive an email to verify
+              your account.{" "}
+            </p>
+            <p>
+              {" "}If you do not verify your account within 24 hours, your account
+              will be removed.{" "}
+            </p>
+            <RaisedButton
+              label="Continue"
+              primary={true}
+              type="submit"
+              disabled={disabled}
+              style={this.props.buttonStyle}
+              fullWidth={true}
+            />
+          </form>
         </Dialog>
 
       </div>
