@@ -23,6 +23,11 @@ const buttonStyle = {
   textTransform: "uppercase"
 };
 
+const pStyle = {
+  lineHeight: 1.25,
+  textAlign: "left"
+};
+
 
 class DemoDialog extends Component {
   constructor() {
@@ -47,7 +52,7 @@ class DemoDialog extends Component {
     socket.emit("end demo");
     localStorage.removeItem("user_id");
     localStorage.removeItem("token");
-    this.props.logout();    
+    this.props.logout();
   }
 
   handleOpen = () => {
@@ -75,22 +80,27 @@ class DemoDialog extends Component {
 		      label={this.state.demoRunning ? "Stop" : "Demo"}
 		      primary={true}
 		      onTouchTap={this.state.demoRunning ? this.endDemo : this.handleClick}
+          style={{minWidth: 0}}
+          labelStyle={{
+            fontSize: 14,
+            padding: "0 8px"
+          }}
 		    />
         <Dialog
-          title="Type a text message and start the demo!"
+          title="Welcome to Pale Blue!"
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
           style={{ textAlign: "center" }}
         >
-          <p>
-            {" "}This application is meant to interact with other users. While it's in alpha stage, you can try it out with this demo.{" "}
+          <p style={pStyle}>
+            {"This demo will log you in as a guest and create content and likes around the globe. You can interact with the things you see and the app will continue to function normally."}
+          </p>
+          <p style={pStyle}>
+            {"The simulation will end after 2 minutes and you will be logged out, but you can also stop anytime by using the stop button."}
           </p>
           <p>
-            {" "}When you enter a message and submit, you will be logged in as a demo user, and imaginary content will be created in real time. Other than this content, everything else stays the same, so you can use the application as you normally would.{" "}
-          </p>
-          <p>
-            {" "}The simulation will run for 2 minutes, and you can stop it anytime with the Stop button.{" "}
+            {"Type a message to begin."}
           </p>
           <DemoForm
             regUser={this.props.regUser}
