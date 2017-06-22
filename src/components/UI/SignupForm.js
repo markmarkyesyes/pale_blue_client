@@ -76,7 +76,7 @@ class SignupForm extends React.Component {
             <p style={{color: "#aaa", lineHeight: 1.5}}>
               {"After signing up, you will receive an email to verify your account."}
               <br />
-              {"Unverified accounts will be removed after 24 hours."}
+              {"Unverified accounts will be removed after 72 hours."}
             </p>
             <RaisedButton
               label="Continue"

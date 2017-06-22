@@ -9,6 +9,6 @@ export function selectedContent(state = initialState, action) {
     case Actions.CLOSE_CONTENT:
       return null;
     default:
-      return initialState;
+      return state;
   }
 }
