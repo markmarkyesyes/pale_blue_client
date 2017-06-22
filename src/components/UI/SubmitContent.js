@@ -102,6 +102,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     submitDot: content => {
+      if (content === null) return console.error('Content is null');
       dispatch(submitDot(content));
     }
   };

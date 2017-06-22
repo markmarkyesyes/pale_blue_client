@@ -2,25 +2,46 @@ import React, { Component } from "react";
 import getLocalInfo from "../gMapsAPI/gMapsAPI";
 
 const pStyle = {
-  margin: "2px 0",
-  color: "#00BFFF"
+  fontSize: 18,
+  margin: "4px 0",
+  color: "#00BCD4"
 };
+
+function selectedLocationChanged(nextProps, oldProps) {
+  if (!nextProps.selectedContent && !oldProps.selectedContent) {
+    return false;
+  }
+  return (nextProps.selectedContent && !oldProps.selectedContent) ||
+         (!nextProps.selectedContent && oldProps.selectedContent) ||
+         (nextProps.selectedContent.lng !== oldProps.selectedContent.lng) ||
+         (nextProps.selectedContent.lat !== oldProps.selectedContent.lat);
+}
+
+function nearbyLocationChanged(nextProps, oldProps) {
+  if (!nextProps.nearbyContent && !oldProps.nearbyContent) {
+    return false;
+  }
+  return (nextProps.nearbyContent[0] && !oldProps.nearbyContent[0]) ||
+         (!nextProps.nearbyContent[0] && oldProps.nearbyContent[0]) ||
+         (nextProps.nearbyContent[0].lng !== oldProps.nearbyContent[0].lng) ||
+         (nextProps.nearbyContent[0].lat !== oldProps.nearbyContent[0].lat);
+}
 
 export default class LocalInfo extends Component {
   state = { results: null };
 
-  componentWillReceiveProps(nextProps, oldProps) {
+  componentWillReceiveProps(nextProps) {
     if (!nextProps.nearbyContent.length) {
       this.setState({ results: null });
       return;
     }
 
-    if (nextProps.selectedContent) {
-      var { lng, lat } = nextProps.selectedContent;
-    } else {
-      var { lng, lat } = nextProps.nearbyContent[0];
+    if (!selectedLocationChanged(nextProps, this.props) &&
+        !nearbyLocationChanged(nextProps, this.props)) {
+      return;
     }
 
+    const { lng, lat } = nextProps.selectedContent || nextProps.nearbyContent[0];
     getLocalInfo(lng, lat).then(results => this.setState({ results }));
   }
 
@@ -30,9 +51,9 @@ export default class LocalInfo extends Component {
         <div
           style={{
             position: "fixed",
-            bottom: "15px",
-            left: "15px",
-            zIndex: "99999"
+            bottom: 15,
+            left: 15,
+            zIndex: 99999
           }}>
           <p style={pStyle}>{this.state.results.district}</p>
           <p style={pStyle}>{this.state.results.state}</p>

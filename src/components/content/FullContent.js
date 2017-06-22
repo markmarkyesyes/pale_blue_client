@@ -1,13 +1,14 @@
 import React from "react";
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 const fullPanelStyle = {
   position: "fixed",
-  top: 68,
+  top: 0,
   left: 0,
   width: "100%",
-  height: "calc(100% - 175px)",
-  padding: "2rem 1.5rem",
-  lineHeight: "1.5rem",
+  height: "calc(100% - 140px)",
+  padding: "3.5rem 1.5rem 1.5rem",
+  lineHeight: 1.5,
   backgroundColor: "#e3e3e3",
   overflowY: "scroll",
   zIndex: 1000000
@@ -20,7 +21,6 @@ export default class FullContent extends React.Component {
       userLocation,
       userId,
       submitLike,
-      selectContent,
       closeContent
     } = this.props;
     if (userLocation.lng && userLocation.lat && userId && selectedContent._id) {
@@ -44,31 +44,43 @@ export default class FullContent extends React.Component {
 
     return (
       <div style={fullPanelStyle}>
-        <img
-          onClick={closeContent}
-          src="../../close.svg"
-          alt='close'
+        <FloatingActionButton
+          onTouchTap={this.handleLike}
+          mini={true}
+          secondary={true}
           style={{
-            cursor: "pointer",
-            position: "absolute",
-            top: 8,
-            right: 20
-          }}
-        />
-        <img
-          onClick={this.handleLike}
-          src="../../like.svg"
-          alt='like'
-          style={{
-            cursor: "pointer",
             position: "fixed",
             height: 40,
             width: 40,
-            bottom: 50,
-            right: 20
+            top: 15,
+            left: 15
           }}
-        />
+        >
+          <img
+            src="../../like.svg"
+            alt='like'
+            style={{width: '65%'}}
+          />
+        </FloatingActionButton>
+
+        <FloatingActionButton
+          onTouchTap={closeContent}
+          mini={true}
+          style={{
+            position: "fixed",
+            top: 15,
+            right: 15
+          }}
+        >
+          <img
+            src="../../close.svg"
+            alt='close'
+            style={{width: '75%'}}
+          />
+        </FloatingActionButton>
+
         {switchContent(selectedContent)}
+
       </div>
     );
   }

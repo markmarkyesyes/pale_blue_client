@@ -3,6 +3,7 @@ import socket from "../websockets";
 import Color from "cesium/Source/Core/Color";
 import { pulse } from '../helpers/animation';
 
+const pulseTimes = 4;
 const multiplyColor = Color.GOLD;
 
 class NewContentAnimationContainer extends React.Component {
@@ -16,7 +17,7 @@ class NewContentAnimationContainer extends React.Component {
 
   newContentPulse = content => {
     const { viewer } = this.props;
-    pulse(viewer, content.lng, content.lat, multiplyColor);
+    pulse(viewer, content.lng, content.lat, multiplyColor, pulseTimes);
   }
 
   render() {

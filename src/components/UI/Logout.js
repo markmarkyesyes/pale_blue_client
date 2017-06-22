@@ -16,6 +16,11 @@ class Logout extends Component {
           label="Logout"
           primary={true}
           onTouchTap={this.handleLogout}
+          style={{minWidth: 0}}
+          labelStyle={{
+            fontSize: 14,
+            padding: "0 10px"
+          }}
         />
       );
     } else {

@@ -38,9 +38,11 @@ function _fetchLocalData(lng, lat) {
       );
     })
     .then(tzResponse => {
+      if (!tzResponse) return null;
       return tzResponse.json();
     })
     .then(tzJson => {
+      if (!tzJson) return null;
       if (!tzJson.rawOffset) {
         console.log("in error on timezone", tzJson);
         return results;

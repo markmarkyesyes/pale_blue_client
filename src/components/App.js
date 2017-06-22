@@ -20,14 +20,12 @@ export default class App extends React.Component {
     if (!userLocation) return null;
     return (
       <div style={containerStyle}>
-        <div id="credits" />
+        <div id="credits"></div>
         <CesiumGlobe userLocation={userLocation} />
         <div
           style={{
             position: "fixed",
-            width: 40,
-            height: 40,
-            top: 15,
+            bottom: 15,
             right: 15
           }}
         >
@@ -36,13 +34,20 @@ export default class App extends React.Component {
         <div
           style={{
             position: "fixed",
-            width: 60,
-            height: 40,
-            top: 18,
-            right: 95
-          }}>
-          <Logout />
+            bottom: 84,
+            right: 16
+          }}
+        >
           <DemoDialog />
+        </div>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 22,
+            right: 85
+          }}
+        >
+          <Logout />
         </div>
       </div>
     );

@@ -16,13 +16,12 @@ import NewContentAnimationContainer from "../containers/NewContentAnimationConta
 import LikeAnimationContainer from "../containers/LikeAnimationContainer";
 const containerStyle = {
   width: "100%",
-  height: "100%",
-  display: "flex",
-  alignItems: "stretch"
+  height: "100%"
 };
 
 const widgetStyle = {
-  flexGrow: 2
+  width: "100%",
+  height: "100%"
 };
 
 export default class CesiumGlobe extends React.Component {

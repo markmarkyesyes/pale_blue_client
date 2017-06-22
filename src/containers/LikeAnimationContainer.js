@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     likesList: state.likesList.startingLikes,
     viewer: ownProps.viewer,
-    userId: state.session.data._id
+    userId: state.session.data._id || localStorage.getItem("user_id")
   };
 };
 

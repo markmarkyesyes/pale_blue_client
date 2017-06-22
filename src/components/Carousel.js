@@ -43,7 +43,7 @@ const config = {
 };
 
 const slideStyle = {
-  height: 120
+  height: 100
 };
 
 export default class Carousel extends React.Component {
@@ -96,7 +96,7 @@ export default class Carousel extends React.Component {
       <div
         style={{
           position: "fixed",
-          top: 75,
+          top: 5,
           left: 0,
           zIndex: 99999,
           width: "100%",
