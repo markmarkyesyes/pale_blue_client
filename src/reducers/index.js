@@ -8,11 +8,11 @@ import { camera } from './camera';
 import { selectedContent } from './selectedContent';
 
 export default combineReducers({
+  selectedContent,
   camera,
   userLocation,
   session,
   dotsList,
   likesList,
-  myLiked,
-  selectedContent
+  myLiked
 });

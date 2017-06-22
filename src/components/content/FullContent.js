@@ -15,6 +15,10 @@ const fullPanelStyle = {
 };
 
 export default class FullContent extends React.Component {
+  componentWillReceiveProps(newProps) {
+    console.log(newProps);
+  }
+
   handleLike = () => {
     const {
       selectedContent,
