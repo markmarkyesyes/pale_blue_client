@@ -73,13 +73,10 @@ class SignupForm extends React.Component {
               onChange={this.handleInputChange}
               style={this.props.inputStyle}
             />
-            <p>
-              {" "}On successful registration, you will receive an email to verify
-              your account.{" "}
-            </p>
-            <p>
-              {" "}If you do not verify your account within 24 hours, your account
-              will be removed.{" "}
+            <p style={{color: "#aaa", lineHeight: 1.5}}>
+              {"After signing up, you will receive an email to verify your account."}
+              <br />
+              {"Unverified accounts will be removed after 24 hours."}
             </p>
             <RaisedButton
               label="Continue"
