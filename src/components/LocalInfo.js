@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import getLocalInfo from "../gMapsAPI/gMapsAPI";
 
 const pStyle = {
-  margin: "2px 0",
-  color: "#00BFFF"
+  fontSize: 18,
+  margin: "4px 0",
+  color: "#00BCD4"
 };
 
 function selectedLocationChanged(nextProps, oldProps) {
@@ -50,9 +51,9 @@ export default class LocalInfo extends Component {
         <div
           style={{
             position: "fixed",
-            bottom: "15px",
-            left: "15px",
-            zIndex: "99999"
+            bottom: 15,
+            left: 15,
+            zIndex: 99999
           }}>
           <p style={pStyle}>{this.state.results.district}</p>
           <p style={pStyle}>{this.state.results.state}</p>
