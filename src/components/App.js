@@ -25,9 +25,7 @@ export default class App extends React.Component {
         <div
           style={{
             position: "fixed",
-            width: 40,
-            height: 40,
-            top: 15,
+            bottom: 15,
             right: 15
           }}
         >
@@ -36,12 +34,20 @@ export default class App extends React.Component {
         <div
           style={{
             position: "fixed",
-            height: 40,
-            top: 18,
-            right: 65
-          }}>
-          <Logout />
+            bottom: 84,
+            right: 16
+          }}
+        >
           <DemoDialog />
+        </div>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 22,
+            right: 85
+          }}
+        >
+          <Logout />
         </div>
       </div>
     );
