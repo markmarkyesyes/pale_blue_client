@@ -6,8 +6,7 @@ import StripeMaterialProperty from "cesium/Source/DataSources/StripeMaterialProp
 import StripeOrientation from "cesium/Source/DataSources/StripeOrientation";
 
 export function pulse(viewer, lng, lat, multiplyColor, times = 0) {
-  pulseSingle(viewer, lng, lat, multiplyColor);
-  for (let i = 0; i < times; i++) {
+  for (let i = 0; i <= times; i++) {
     setTimeout(() => {
       pulseSingle(viewer, lng, lat, multiplyColor);
     }, i * 1000);
