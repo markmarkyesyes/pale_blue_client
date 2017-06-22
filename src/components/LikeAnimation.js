@@ -76,6 +76,9 @@ class LikeAnimation extends React.Component {
 
     pulse(viewer, like.fromLng, like.fromLat, endColor, pulseTimes);
 
+    const lineDuration = distanceBetween(startPos, endPos) / velocity;
+    if (lineDuration === 0) return;
+
     const startEntity = viewer.entities.add({
 	    position: startPos,
 	    point: {
@@ -96,8 +99,6 @@ class LikeAnimation extends React.Component {
 	  	this.addDemoLine(startEntity);
 	  	this.addDemoLine(endEntity);
 	  }
-
-    const lineDuration = distanceBetween(startPos, endPos) / velocity;
 
 	  const line = viewer.entities.add({
 	    polyline: {
